@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+    
+<head>
+    <meta charset="utf-8">
+    <title>SmartProcess</title>
+
+    <link href = "css/handsontable.full.min.css" rel = "stylesheet" media = "screen">
+
+</head>
+
+<body>
+    <div class = "controls">
+        <button name = "save" id = "save" class = "intext-btn">Save</button>
+        
+        <select id = "dropdown" onchange = "dropChange()">
+            <option value = "샘플준비">샘플준비</option>
+            <option value = "세정1">세정1</option>
+            <option value = "세정2">세정2</option>
+            <option value = "세정3">세정3</option>
+            <option value = "세정블로윙">세정블로윙</option>
+            <option value = "프리스퍼터링">프리스퍼터링</option>
+            <option value = "스퍼터링">스퍼터링</option>
+            <option value = "열처리">열처리</option>
+            <option value = "PR핸드블로윙">PR핸드블로윙</option>
+            <option value = "HDMS코팅">HDMS코팅</option>
+            <option value = "PR코팅">PR코팅</option>
+            <option value = "PR베이킹">PR베이킹</option>
+            <option value = "클로로벤젠처리">클로로벤젠처리</option>
+            <option value = "클로로벤젠세정후블로윙">클로로벤젠세정후블로윙</option>
+            <option value = "노광">노광</option>
+            <option value = "현상">현상</option>
+            <option value = "현상액세정후블로윙">현상액세정후블로윙</option>
+            <option value = "이베포레이션샘플거치">이베포레이션샘플거치</option>
+            <option value = "스트립-담그기">스트립-담그기</option>
+            <option value = "스트립-뿌리기">스트립-뿌리기</option>
+            <option value = "산화막제거">산화막제거</option>
+            <option value = "실버페이스트도포">실버페이스트도포</option>
+            <option value = "실버페이스트건조">실버페이스트건조</option>
+            <option value = "측정">측정</option>
+        </select>
+    </div>
+    
+
+    <pre id = "tableconsole" class = "console">Click "Save" to save data to server</pre>
+
+    <div id = "table" class = "hot"></div>
+
+    
+    <script src = "js/handsontable.full.min.js"></script>
+    <script src = "http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src = "js/table.js"></script>
+
+</body>
+
+</html>
