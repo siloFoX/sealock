@@ -3,12 +3,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 
-// var mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
-
-// var dbURL = 'http://localhost:27017'
-
-// mongoose.connect(dbURL, )
+var MongoClient = require('mongodb').MongoClient;
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -31,17 +26,67 @@ app.post('/ajax', function (req, res) {
 
     var process = rawRes[0][0]
     var header = rawRes[1]
-    var table = rawRes.slice(2)
+    var table = rawRes.slice(2)[0]
 
-    console.log(process)
-    console.log(header)
-    console.log(table)
+    // console.log(process)
+    // console.log(header)
+    // console.log(header.length)
+    // console.log(table)
 
-    fs.appendFile('./stored_data/logs.txt', JSON.stringify(req.body), 'utf8', function (err) {
-        if (err) {
-            console.error(err)
+    fs.readFile('./query/collection_allocate.json', function(err, file) {
+        if(err) {
+            console.error("Collection allocation Error ", err)
         }
-    })
+
+        var dict = JSON.parse(file);
+        var collection = dict[process]
+
+        // console.log(collection)
+
+        MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            if(err) {
+                console.error("Mongodb connection Error ", err)
+                res.json({"result" : "fail"})
+                return;
+            }
+
+            for (tableIdx in table){
+                var queryTable = {}
+                var tableRow = table[tableIdx]
+
+                if (tableRow[0] === null){
+                    continue;
+                }
+
+                for (var idx = 0; idx < header.length; idx++){
+                    queryTable[header[idx]] = tableRow[idx]    
+                }
+
+                // console.log(queryTable)
+
+                client.db("SmartProcess").collection(collection).insertOne(queryTable, function (err) {
+                    if(err) {
+                        console.error("Query Error ", err)
+
+                        res.json({"result" : "fail"})
+                    }
+                    else{
+                        console.log("Query Successs")
+
+                        res.json({"result" : "ok"})
+                    }
+                });
+            }
+        });
+    });
+
+
+    // fs.appendFile('./stored_data/logs.txt', JSON.stringify(req.body), 'utf8', function (err) {
+    //     if (err) {
+    //         console.error(err)
+    //     }
+    // })
+
 })
 
 

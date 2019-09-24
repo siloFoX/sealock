@@ -1,10 +1,62 @@
-// 반응형으로 + DB works
+var mongoose = require('mongoose');
+var schema = mongoose.Schema;
 
-var processess = {
-    "샘플준비" : ["실험날짜", "실험자명", "해당실험기판번호", "기판재료", "사진", "비고"],
-    "세정1" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "용매", "순도", "용매구입일", "용매개봉일", "온도", "시간[sec]", "사진", "비고"],
-    "세정2" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "용매", "순도", "용매구입일", "용매개봉일", "온도", "시간[sec]", "사진", "비고"],
-    "세정3" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "UP", "온도", "시간", "사진", "비고"],
+var Sample_preparationSchema = new schema ({
+    "실험날짜" : String,
+    "실험자명" : String, 
+    "해당실험기판번호" : String, 
+    "기판재료" : String, 
+    "사진" : String, 
+    "비고" : String
+});
+
+var Washing1Schema = new schema ({
+    "실험날짜" : String,
+    "실험자명" : String, 
+    "해당실험기판번호" : String, 
+    "실험장비" : String, 
+    "실험도구" : String, 
+    "용매" : String, 
+    "순도" : String, 
+    "용매구입일" : String, 
+    "용매개봉일" : String, 
+    "온도" : String, 
+    "시간[sec]" : String, 
+    "사진" : String, 
+    "비고" : String
+});
+
+var Washing2Schema = new schema ({
+    "실험날짜" : String,
+    "실험자명" : String, 
+    "해당실험기판번호" : String, 
+    "실험장비" : String, 
+    "실험도구" : String, 
+    "용매" : String, 
+    "순도" : String, 
+    "용매구입일" : String, 
+    "용매개봉일" : String, 
+    "온도" : String, 
+    "시간[sec]" : String, 
+    "사진" : String, 
+    "비고" : String
+});
+
+var Washing3Schema = new schema ({
+   "실험날짜" : String, 
+   "실험자명" : String, 
+   "해당실험기판번호" : String, 
+   "실험장비" : String, 
+   "실험도구" : String, 
+   "UP" : String, 
+   "온도" : String, 
+   "시간" : String, 
+   "사진" : String, 
+   "비고" : String,
+});
+    
+
+/*
     "세정블로윙" : ["실험날짜", "실험자명", "해당실험기판번호", "실험도구", "가스", "순도", "온도", "사진", "비고"],
     "프리스퍼터링" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "가스1", "가스1 순도", "가스1 유량", "가스2", "가스2 순도", "가스2 유량", "가스3", "가스3 순도", "가스3 유량", "증착재료", "온도", "시간[sec]", "압력[Torr]", "회전속도[rpm]", "파워[W]", "사진", "비고"],
     "스퍼터링" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "가스1", "가스1 순도", "가스1 유량", "가스2", "가스2 순도", "가스2 유량", "가스3", "가스3 순도", "가스3 유량", "증착재료", "온도", "시간[sec]", "압력[Torr]", "회전속도[rpm]", "파워[W]", "두께[nm]", "사진", "비고"],
@@ -29,102 +81,4 @@ var processess = {
     "실버페이스트도포" : ["실험날짜", "실험자명", "해당실험기판번호", "실험도구", "재료", "사진", "비고"],
     "실버페이스트건조" : ["실험날짜", "실험자명", "해당실험기판번호", "실험도구", "사진", "비고"],
     "측정" : ["실험날짜", "실험자명", "해당실험기판번호", "실험장비", "실험도구", "Mobility", "Vth", "On current", "Off current", "On/Off ratio", "S.S", "사진", "비고"]
-}
-
-var
-    $$ = function(id) {
-    return document.getElementById(id);
-    },
-
-    container = $$('table'),
-    exampleConsole = $$('tableconsole'),
-    dropdown = $$('dropdown'),
-    save = $$('save'),
-    hot;
-
-// var URL = "http://localhost:3000/ajax";
-var URL = "https://f28e2e69.ngrok.io/ajax";
-
-var headers = processess["샘플준비"] 
-
-hot = new Handsontable(container, {
-    data: Handsontable.helper.createSpreadsheetData(10, headers.length),
-    colHeaders: headers,
-    rowHeaders: true,
-    minSpareRows: 1,
-    manualColumnResize: true,
-    manualRowResize: false,
-    headerTooltips: {
-        rows: false,
-        columns: true,
-        onlyTrimmed: true
-    },
-    licenseKey: "non-commercial-and-evaluation",
-});
-
-hot.clear()
-
-  
-Handsontable.dom.addEvent(save, 'click', function() {
-
-    var process = dropdown.options[dropdown.selectedIndex].value
-    var headers = processess[process] 
-
-    var req = "[[\"" + process + "\"]," + JSON.stringify(headers) + "," + JSON.stringify(hot.getData()) + "]"
-
-    // console.log(req)
-
-    $.ajax({
-        crossOrigin : true,
-        url : URL,
-        type : 'POST',
-        dataType : 'text',
-        data : req,
-        contentType : 'application/json',
-        success : function (res) {
-            // console.log(JSON.parse(res));
-            var response = JSON.parse(res);
-
-            if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
-                alert('Data saved')
-            }
-            else {
-                exampleConsole.innerText = 'Save error';
-                alert('Save error')
-            }
-        }
-    })
-
-    alert("Save query sended")
-    hot.clear()
-});
-
-container.onchange = function () {
-    exampleConsole.innerText = 'Click "Save" to save data to server';
-}
-
-function dropChange() {
-    var process = dropdown.options[dropdown.selectedIndex].value 
-    var headers = processess[process] 
-
-    hot.destroy()
-
-    hot = new Handsontable(container, {
-        data: Handsontable.helper.createSpreadsheetData(10, headers.length),
-        colHeaders: headers,
-        rowHeaders: true,
-        minSpareRows: 1,
-        manualColumnResize: true,
-        manualRowResize: false,
-        headerTooltips: {
-            rows: false,
-            columns: true,
-            onlyTrimmed: true
-        },
-        licenseKey: "non-commercial-and-evaluation",
-    });
-
-    hot.clear()
-}
-
+*/
