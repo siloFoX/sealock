@@ -6,13 +6,18 @@
     <title>SmartProcess</title>
 
     <link href = "css/handsontable.full.min.css" rel = "stylesheet" media = "screen">
+    <script src = "https://code.jquery.com/jquery-latest.min.js"></script>
     <link href = "css/index.css" rel = "stylesheet" type="text/css">
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 
 </head>
 
 <body>
-    <div class = "spreadsheet">
+    <div id = "spreadsheet" class = "column">
         <div class = "controls">
             <button name = "save" id = "save" class = "intext-btn">Save</button>
         
@@ -45,17 +50,19 @@
         </div>
     
 
-        <pre id = "tableconsole" class = "console">Click "Save" to save data to server</pre>
+        <!-- <pre id = "tableconsole" class = "console">Click "Save" to save data to server</pre> -->
+        <span id = "tableconsole" class = "console">Click "Save" to save data to server</span>
 
         <div id = "table" class = "hot"></div>
-
+       
     
         <script src = "js/handsontable.full.min.js"></script>
-        <script src = "https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src = "js/processess.js"></script>
         <script src = "js/table.js"></script>
     </div>
+
     <div class = "store_image">
-        <!--insert store image process-->
+        <!-- insert store image process -->
         <h1>store image</h1>
     </div>
 </body>
