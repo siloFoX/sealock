@@ -9,19 +9,26 @@
     <script src = "https://code.jquery.com/jquery-latest.min.js"></script>
     <link href = "css/index.css" rel = "stylesheet" type="text/css">
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 
 </head>
 
-<body>
+<body class="body">
     <div id = "spreadsheet" class = "column">
+        <!-- <div class = "app-header-dark">
+            <h1>&nbsp;Sealock&nbsp;</h1>
+        </div> -->
+        <nav class="navbar navbar-expand-sm bg-primary">
+                <span class="navbar-brand mb-0 h1">Sealock</span>
+        </nav>
+
         <div class = "controls">
-            <button name = "save" id = "save" class = "intext-btn">Save</button>
+            <button name = "save" id = "save" class= "btn ">Save</button>
         
-            <select id = "dropdown" onchange = "dropChange()">
+            <select id = "dropdown" class = "dropdown" onchange = "dropChange()">
                 <option value = "샘플준비">샘플준비</option>
                 <option value = "세정1">세정1</option>
                 <option value = "세정2">세정2</option>
@@ -47,10 +54,12 @@
                 <option value = "실버페이스트건조">실버페이스트건조</option>
                 <option value = "측정">측정</option>
             </select>
+            
         </div>
     
 
         <!-- <pre id = "tableconsole" class = "console">Click "Save" to save data to server</pre> -->
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span id = "tableconsole" class = "console">Click "Save" to save data to server</span>
 
         <div id = "table" class = "hot"></div>
@@ -63,7 +72,7 @@
 
     <div class = "store_image">
         <!-- insert store image process -->
-        <h1>store image</h1>
+        <h2>Store Image</h2>
     </div>
 </body>
 

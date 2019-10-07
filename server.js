@@ -59,10 +59,15 @@ app.post('/ajax', function (req, res) {
                 }
 
                 for (var idx = 0; idx < header.length; idx++){
-                    queryTable[header[idx]] = tableRow[idx]    
+                    if(header[idx] == ""){
+                        break;
+                    }
+                    else{
+                        queryTable[header[idx]] = tableRow[idx]    
+                    }
                 }
 
-                // console.log(queryTable)
+                console.log(queryTable)
 
                 client.db("SmartProcess").collection(collection).insertOne(queryTable, function (err) {
                     if(err) {

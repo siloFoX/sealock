@@ -20,7 +20,7 @@ var headers = processess["샘플준비"]
 hot = new Handsontable(container, {
     data: Handsontable.helper.createSpreadsheetData(10, headers.length),
     colHeaders: headers,
-    rowHeaders: true,
+    rowHeaders: false,
     minSpareRows: 1,
     height: 300,
     width: '100%',
@@ -87,7 +87,7 @@ function dropChange() {
     hot = new Handsontable(container, {
         data: Handsontable.helper.createSpreadsheetData(10, headers.length),
         colHeaders: headers,
-        rowHeaders: true,
+        rowHeaders: false,
         height: 300,
         width: '100%',
         minSpareRows: 1,
