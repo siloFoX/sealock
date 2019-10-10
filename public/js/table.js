@@ -1,4 +1,7 @@
 // TODO :
+var URL = "http://localhost:3000";
+// var URL = "https://f28e2e69.ngrok.io/ajax";
+
 var
     $$ = function(id) {
     return document.getElementById(id);
@@ -9,10 +12,11 @@ var
     dropdown = $$('dropdown'),
     parentDropdown = $$('parent-dropdown'),
     save = $$('save'),
+    info_date = $$('info-date'),
+    info_name = $$('info-name'),
+    info_board_number = $$('info-board-number'),
+    dummy_btn = $$('default'),
     hot;
-
-var URL = "http://localhost:3000/ajax";
-// var URL = "https://f28e2e69.ngrok.io/ajax";
 
 var selected_row = null
 var first_picture_select = true
@@ -27,7 +31,7 @@ function render_table() {
         data: Handsontable.helper.createSpreadsheetData(19, headers.length),
         colHeaders: headers,
         rowHeaders: true,
-        height: 500,
+        height: 520,
         width: '100%',
         minSpareRows: 1,
         manualColumnResize: true,
@@ -55,6 +59,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
     var process = dropdown.options[dropdown.selectedIndex].value
     var headers = processess[process] 
+    var url_tmp = URL + "/ajax"
 
     var req = "[[\"" + process + "\"]," + JSON.stringify(headers) + "," + JSON.stringify(hot.getData()) + "]"
 
@@ -62,7 +67,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
     $.ajax({
         crossOrigin : true,
-        url : URL,
+        url : url_tmp,
         type : 'POST',
         dataType : 'text',
         data : req,
@@ -86,7 +91,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
 });
 
 container.onchange = function () {
-    exampleConsole.innerText = 'Click "Upload" to save data to server';
+    exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
 }
 
 function dropChange() {
@@ -149,7 +154,7 @@ function select_picture(row, column, row2, column2, headers, hot) {
         first_picture_select = false
         selected_row = row
 
-        sidebar_picture(hot.getData()[row], headers)
+        sidebar_picture(hot.getData()[row])
     }
     else{
         first_picture_select = true
@@ -157,6 +162,19 @@ function select_picture(row, column, row2, column2, headers, hot) {
     }
 }
 
-function sidebar_picture(data, headers){
-    
+function sidebar_picture(data){
+    info_date.innerHTML = data[0]
+    info_name.innerHTML = data[1]
+    info_board_number.innerHTML = data[2]
+
+    if(data[0] && data[1] && data[2]){
+        alert("Go to left tab and save your file.")
+    }
+    else{
+        alert("Please fill in your data for save image")
+    }
 }
+
+dummy_btn.addEventListener('click', function () {
+    alert("There is no PRO version now.")
+});

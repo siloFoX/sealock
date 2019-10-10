@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE HTML> -->
+<!DOCTYPE HTML>
 <html>
     
 <head>
@@ -16,11 +16,7 @@
 
 </head>
 
-<body class="body">
-    <!-- <div class="loading-container">
-        <div class="loading"></div>
-        <div id="loading-text">loading</div>
-    </div> -->
+<body class="body"> 
     <nav class = "navbar navbar-fixed-top">
         <div class = "container-fluid">
             <div class = "navbar-header">
@@ -39,24 +35,57 @@
 
             <div class="navbar-form navbar-left" >
                 <div>
-                    <button name = "default" id = "default" class= "btn">Dummy button</button>
+                    <button name = "default" id = "default" class= "btn">Get Pro version</button>
                 </div>
             </div>
 
+            <div class="navbar-form navbar-right input-form" >
+                <input type = "text" class = "form-control" placeholder = "not yet supported">
+            </div>
+
+            <div class="navbar-form navbar-right search-form" >
+                <span>Search&nbsp; | </span>
+            </div>
         </div>
     </nav>
 
     <div class = "container-fluid ">
         <div class = "row">
-            <div class="col-sm-2 sidebar">
+            <div class="col-sm-3 sidebar">
 
                     <div class="col-sm-9 editbox">
                         
-                        <br><h5>Text Editor:</h5> 
+                        <br><h5 class = "h5-header">Text Editor:</h5> 
             
-                        <input type="image" src="images\icons8-bold-80.png" name="saveForm" id="bold" />
-                        <input type="image" src="images\icons8-italic-80.png" name="saveForm" id="bold" />
-                        <input type="image" src="images\icons8-underline-80.png" name="saveForm" id="bold" />
+                        <input type="image" src="images\icons8-bold-80.png" name="saveForm" id="bold"></input>
+                        <input type="image" src="images\icons8-italic-80.png" name="saveForm" id="bold"></input>
+                        <input type="image" src="images\icons8-underline-80.png" name="saveForm" id="bold"></input>
+
+
+                        <hr style="border: solid 1px; color: rgb(212, 212, 212)">
+
+                        <div class = "file-upload-header">
+                            <h5 class = "h5-header">File upload</h5>
+                        </div>
+
+                        
+                        <form class = "sidebar-upload-file">
+                            <div id = "date" class = "sidebar-info">
+                                <span class = "static-info-name">날짜 : </span>
+                                <span id = "info-date" class = "info-info">20191011</span>
+                            </div>
+                            <div id = "name" class = "sidebar-info">
+                                <span class = "static-info-name">이름 : </span>
+                                <span id = "info-name" class = "info-info">홍길동</span>
+                            </div>
+                            <div id = "board-number" class = "sidebar-info">
+                                <span class = "static-info-name">해당번호기판번호 : </span>
+                                <span id = "info-board-number" class = "info-info">1</span>
+                            </div>
+                        </form>
+                        <!-- <div>
+                            <input type="file" class="form-control-file border">
+                        </div> -->
             
                     </div>
                    
@@ -95,10 +124,9 @@
                             <option value = "Add">Add</option>
                         </select> 
 
-                        <!-- <div class = "nav-console-wrapper"> -->
                             <span class = "console">&nbsp;&nbsp;&nbsp;State &nbsp;:&nbsp;</span>
-                            <span id = "tableconsole" class = "console">Click "Upload" to save data to server</span>
-                        <!-- </div> -->
+                            <span id = "tableconsole" class = "console">Click " Upload sheet to DB " to save data to server</span>
+
                     </div>
 
                     <div class = "spreadsheet">
@@ -106,16 +134,23 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class = "upload-btn-wrapper">
-                            <button name = "save" id = "save" class= "btn">Upload</button>
+                        <div class = "left-btn-wrapper">
+                            <button name = "dummy" id = "dummy" class= "btn">Download sheet to .csv</button>
+                            <button name = "dummy" id = "dummy" class= "btn">Another Button</button>
                         </div>
+
+                        <div class = "upload-btn-wrapper">
+                            <button name = "save" id = "save" class= "btn">Upload sheet to DB</button>
+                        </div>
+
                     </div>
                 </div>
 
-               
-
                 <footer class = "footer">
-                        Designed by silofox
+                    <hr id = "footer-line" class = "one">
+                    <div>It is SeaLock and</div>
+                    <div style = "font-weight: 700">APL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div>Designed by silofox</div>
                 </footer>
             </div>
         </div>
@@ -129,3 +164,8 @@
 </body>
 
 </html>
+
+    <!-- <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-text">loading</div>
+    </div> -->
