@@ -1,32 +1,45 @@
-.controls{
-    text-align: right;
+.body{
+    background-color: #ecf9ff;
 }
-.column{
+
+.navbar{
+    background-color: #ffffff !important;
+    height: 70;
+    border-bottom: 3px solid transparent !important;
+}
+/* .navbar-inverse{
+    background-color: #ffffff !important;
+} */
+.navbar-brand{
+    float: left;
+    height: 60px !important;
+    padding: 15px 15px;
+    font-size: 40px !important;
+    line-height: 35px !important;
+}
+.navbar-brand:hover {
+    color: rgba(95, 95, 95, 0.445) !important;
+}
+.navbar-brand {
+    color: #3b93ff !important;
+}
+
+.navbar-form {
+    padding: 10px 15px !important;
+}
+/* .column{
     float: left;
     width: 99%;
     margin-left: 5px;
+} */
+/**/
+.controls{
+    text-align: left;
 }
-.store_image{
-    float: left;
-    width: 33%;
-}
-.hot{
-    margin-top: 10px;
-    margin-left: 5px;
-    /* margin-right: 20px; */
-}
-.store_image{
-    margin-left: 5px;
-}
-.body{
-    background-color: rgb(242, 251, 255);
-}
-.app-header-dark{
-    color: rgb(68, 0, 255);
-}
+
 .dropdown{
-    width: 300px; /* 원하는 너비설정 */
-    padding: .3em .5em; /* 여백으로 높이 설정 */
+    width: 250px; /* 원하는 너비설정 */
+    padding: .5em .5em; /* 여백으로 높이 설정 */
     font-family: inherit;  /* 폰트 상속 */
     /* background: url('이미지 경로') no-repeat 95% 50%; 네이티브 화살표를 커스텀 화살표로 대체 */
     border: 1px solid rgb(255, 255, 255);
@@ -38,16 +51,64 @@
     font-weight: 700;
     /* margin-right: 200px; */
 }
-.ht_master tr td {
-    background-color: #e3f2fd;
+.process-color{
+    width: 200px;
+    background-color: #c2c2c2;
+    /*color: #ffffff; */
 }
-.handsontable th {
-    background-color: #97cefc;
+
+
+.nav-console-wrapper{
+    padding-top: 35px !important;
+    padding-bottom: 0px !important;
 }
 .console{
-    color: rgb(68, 87, 255);
-    font-size: 1.5em;
+    padding-left: 0px;
+    color: rgb(136, 138, 255);
+    font-size: 1em;
 }
-.h1{
-    font-size: 3em !important;
+
+.row {
+    margin-top : 50px;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+/* .sidebar{
+    background-color: #707070 !important;
+} */
+
+/* .hot{
+    margin-left: 5px;
+} */
+/* .handsontable th {
+    background-color: #a2cefa;
+}
+.ht_master tr td {
+    background-color: #ffffff;
+} */
+
+.sidebar{
+    margin-top: 30px;
+    background-color: rgb(255, 253, 253);
+}
+
+.panel{
+    margin: 40px 0 6px !important;
+    padding-bottom: 0px !important;
+}
+.panel-head{
+    font-size: 20;
+    font-weight: 700;
+}
+.panel-heading{
+    border-bottom: 0px solid transparent !important;
+}
+
+.upload-btn-wrapper{
+    float: right;
+}
+
+.footer{
+    text-align: right;
+    color: rgb(211, 211, 211);
 }

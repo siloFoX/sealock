@@ -2,3 +2,6 @@ image/
 node_modules/
 query/
 models/
+
+template.html
+.ngrok.exe.old

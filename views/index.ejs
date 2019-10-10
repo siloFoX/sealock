@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!-- <!DOCTYPE HTML> -->
 <html>
     
 <head>
@@ -17,69 +17,150 @@
 </head>
 
 <body class="body">
-    <div id = "spreadsheet" class = "column">
-        <!-- <div class = "app-header-dark">
-            <h1>&nbsp;Sealock&nbsp;</h1>
-        </div> -->
-        <nav class="navbar navbar-expand-sm bg-primary">
-                <span class="navbar-brand mb-0 h1">SeaLock</span>
-        </nav>
-
-        <div class = "controls">
-        
-            <select id = "dropdown" class = "dropdown" onchange = "dropChange()">
-                <option value = "샘플준비">샘플준비</option>
-                <option value = "세정1">세정1</option>
-                <option value = "세정2">세정2</option>
-                <option value = "세정3">세정3</option>
-                <option value = "세정블로윙">세정블로윙</option>
-                <option value = "프리스퍼터링">프리스퍼터링</option>
-                <option value = "스퍼터링">스퍼터링</option>
-                <option value = "열처리">열처리</option>
-                <option value = "PR핸드블로윙">PR핸드블로윙</option>
-                <option value = "HDMS코팅">HDMS코팅</option>
-                <option value = "PR코팅">PR코팅</option>
-                <option value = "PR베이킹">PR베이킹</option>
-                <option value = "클로로벤젠처리">클로로벤젠처리</option>
-                <option value = "클로로벤젠세정후블로윙">클로로벤젠세정후블로윙</option>
-                <option value = "노광">노광</option>
-                <option value = "현상">현상</option>
-                <option value = "현상액세정후블로윙">현상액세정후블로윙</option>
-                <option value = "이베포레이션샘플거치">이베포레이션샘플거치</option>
-                <option value = "스트립-담그기">스트립-담그기</option>
-                <option value = "스트립-뿌리기">스트립-뿌리기</option>
-                <option value = "산화막제거">산화막제거</option>
-                <option value = "실버페이스트도포">실버페이스트도포</option>
-                <option value = "실버페이스트건조">실버페이스트건조</option>
-                <option value = "측정">측정</option>
-            </select>
+    <nav class = "navbar navbar-fixed-top">
+        <div class = "container-fluid">
+            <div class = "navbar-header">
+                <a class = "navbar-brand">SeaLock</a>
+            </div>
             
+            <div class = "navbar-form navbar-left nav-console-wrapper">
+                <span class = "console">&nbsp;&nbsp;&nbsp;State &nbsp;:&nbsp;</span>
+                <span id = "tableconsole" class = "console">Click "Upload" to save data to server</span>
+            </div>
+
+            <div class = "navbar-form navbar-left">
+                    <div class = "controls">            
+                            <select id = "parent-dropdown" class = "dropdown" onchange = "parentDropChange()">
+                                <option value = "SmartProcess">SmartProcess</option>
+                                <optgroup label = "=========================="></optgroup>
+                                <option value = "Add">Add</option>
+                            </select>  
+                    </div>
+                </div>
+
+            <div class="navbar-form navbar-left" >
+                <div>
+                    <button name = "default" id = "default" class= "btn">Dummy button</button>
+                </div>
+            </div>
+
         </div>
-    
+    </nav>
 
-        <!-- <pre id = "tableconsole" class = "console">Click "Save" to save data to server</pre> -->
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span id = "tableconsole" class = "console">Click "Save" to save data to server</span>
+    <div class = "container-fluid ">
+        <div class = "row">
+            <div class="col-sm-3 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Export</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Nav item</a></li>
+                        <li><a href="">Nav item again</a></li>
+                        <li><a href="">One more nav</a></li>
+                        <li><a href="">Another nav</a></li>
+                        <li><a href="">More</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Nav item again</a></li>
+                        <li><a href="">One more nav</a></li>
+                        <li><a href="">Another nav</a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                        <li><a href=""> </a></li>
+                    </ul>
+            </div>
+            <!-- <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                      Panel content
+                    </div>
+                  </div> -->
 
-        <div id = "table" class = "hot"></div>
+            <div class = "col-sm-9">
+                <!-- <div class = "page-header">
+                    <h3 class = "page-header-inside">Table</h3>
+                </div> -->
+
+                <div class = "panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-head">Process : </span>                        
+                        <select id = "dropdown" class = "dropdown process-color" onchange = "dropChange()">
+                            <option value = "샘플준비">샘플준비</option>
+                            <option value = "세정1">세정1</option>
+                            <option value = "세정2">세정2</option>
+                            <option value = "세정3">세정3</option>
+                            <option value = "세정블로윙">세정블로윙</option>
+                            <option value = "프리스퍼터링">프리스퍼터링</option>
+                            <option value = "스퍼터링">스퍼터링</option>
+                            <option value = "열처리">열처리</option>
+                            <option value = "PR핸드블로윙">PR핸드블로윙</option>
+                            <option value = "HDMS코팅">HDMS코팅</option>
+                            <option value = "PR코팅">PR코팅</option>
+                            <option value = "PR베이킹">PR베이킹</option>
+                            <option value = "클로로벤젠처리">클로로벤젠처리</option>
+                            <option value = "클로로벤젠세정후블로윙">클로로벤젠세정후블로윙</option>
+                            <option value = "노광">노광</option>
+                            <option value = "현상">현상</option>
+                            <option value = "현상액세정후블로윙">현상액세정후블로윙</option>
+                            <option value = "이베포레이션샘플거치">이베포레이션샘플거치</option>
+                            <option value = "스트립-담그기">스트립-담그기</option>
+                            <option value = "스트립-뿌리기">스트립-뿌리기</option>
+                            <option value = "산화막제거">산화막제거</option>
+                            <option value = "실버페이스트도포">실버페이스트도포</option>
+                            <option value = "실버페이스트건조">실버페이스트건조</option>
+                            <option value = "측정">측정</option>
+                            <optgroup label = "==================="></optgroup>
+                            <option value = "Add">Add</option>
+                        </select> 
+                    </div>
+
+                    <div class = "spreadsheet">
+                        <div id = "table" class = "hot"></div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class = "upload-btn-wrapper">
+                            <button name = "save" id = "save" class= "btn">Upload</button>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class = "footer">
+                        I just wanna sleep
+                </footer>
+            </div>
+        </div>
 
 
-    
-        <script src = "js/handsontable.full.min.js"></script>
-        <script src = "js/processess.js"></script>
-        <script src = "js/table.js"></script>
     </div>
 
-    <div>
-        <div>
-            <button name = "save" id = "save" class= "btn ">Save</button>
-        </div>
-
-        <div class = "store_image">
-            <!-- insert store image process -->
-            <h2>Store Image</h2>
-        </div>
-    </div>
+    <script src = "js/handsontable.full.min.js"></script>
+    <script src = "js/processess.js"></script>
+    <script src = "js/table.js"></script>
 </body>
 
 </html>
