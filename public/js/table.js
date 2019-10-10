@@ -14,6 +14,9 @@ var
 var URL = "http://localhost:3000/ajax";
 // var URL = "https://f28e2e69.ngrok.io/ajax";
 
+var selected_row = null
+var first_picture_select = true
+
 render_table()
 
 function render_table() {
@@ -21,11 +24,11 @@ function render_table() {
     var headers = processess[process] 
 
     hot = new Handsontable(container, {
-        data: Handsontable.helper.createSpreadsheetData(24, headers.length),
+        data: Handsontable.helper.createSpreadsheetData(19, headers.length),
         colHeaders: headers,
         rowHeaders: true,
-        height: 620,
-        width: '90%',
+        height: 500,
+        width: '100%',
         minSpareRows: 1,
         manualColumnResize: true,
         manualRowResize: false,
@@ -35,6 +38,9 @@ function render_table() {
             onlyTrimmed: true
         },
         licenseKey: "non-commercial-and-evaluation",
+        afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
+            select_picture(row, column, row2, column2, headers, hot)
+        }
     });
 
     hot.clear()
@@ -135,3 +141,22 @@ function parentDropChange() {
     }
 }
 
+function select_picture(row, column, row2, column2, headers, hot) {
+    if((row != row2) || (column != column2)){
+        return;
+    }
+    if(headers[column] == "사진" && (selected_row != row || first_picture_select)){
+        first_picture_select = false
+        selected_row = row
+
+        sidebar_picture(hot.getData()[row], headers)
+    }
+    else{
+        first_picture_select = true
+        selected_row = row
+    }
+}
+
+function sidebar_picture(data, headers){
+    
+}
