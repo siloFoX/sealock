@@ -64,14 +64,14 @@ Handsontable.dom.addEvent(save, 'click', function() {
     var req = "[[\"" + process + "\"]," + JSON.stringify(headers) + "," + JSON.stringify(hot.getData()) + "]"
 
     exampleConsole.innerText = 'Loading ...';
-
-    $.ajax({
+    
+    var config = {
         crossOrigin : true,
         url : url_tmp,
-        type : 'POST',
+        method : 'POST',
         dataType : 'text',
         data : req,
-        contentType : 'application/json',
+        responseType : 'json',
         success : function (res) {
             var response = JSON.parse(res);
 
@@ -84,6 +84,10 @@ Handsontable.dom.addEvent(save, 'click', function() {
                 alert('Save error')
             }
         }
+    }
+    axios(config)
+    .then(res =>{
+        console.log(res.data)
     })
 
     alert("Save query sended")

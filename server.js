@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
     res.render('index');
 })
 
-app.post('/ajax', function (req, res) {
+app.post('/axios', function (req, res) {
     console.log("save query is requested")
 
     var rawRes = req.body
