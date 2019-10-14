@@ -69,8 +69,7 @@
                             <h5 class = "h5-header">File upload</h5>
                         </div>
 
-                        
-                        <form class = "sidebar-upload-file">
+                        <form action = "/upload" method = "POST" enctype = "multipart/form-data" class = "sidebar-upload-file">
                             <div id = "date" class = "sidebar-info">
                                 <span class = "static-info-name">날짜 : </span>
                                 <span id = "info-date" class = "info-info">20191011</span>
@@ -83,12 +82,15 @@
                                 <span class = "static-info-name">해당번호기판번호 : </span>
                                 <span id = "info-board-number" class = "info-info">1</span>
                             </div>
+                            
+                            <div class="filebox"> 
+                                <input class = "upload-name" value = "File Name" disabled="disabled"> 
+                                <label for="ex_filename">Upload</label> 
+                                <input type="file" id="ex_filename" class="upload-hidden"> 
+                            </div>
 
-                            <input type = "file" id = "file" class = "custom-file-input">
+                            <button type="submit" class="btn">Submit</button>
                         </form>
-                        <!-- <div>
-                            <input type="file" class="form-control-file border">
-                        </div> -->
             
                     </div>
                    
@@ -168,6 +170,7 @@
     <script src = "js/handsontable.full.min.js"></script>
     <script src = "js/processess.js"></script>
     <script src = "js/table.js"></script>
+    <script src = "js/file_transmition.js"></script>
 </body>
 
 </html>
