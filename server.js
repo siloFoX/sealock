@@ -19,14 +19,14 @@ app.get('/', function (req, res) {
     res.render('index');
 })
 
-app.post('/ajax', function (req, res) {
+app.post('/axios', function (req, res) {
     console.log("save query is requested")
 
     var rawRes = req.body
 
-    var process = rawRes[0][0]
-    var header = rawRes[1]
-    var table = rawRes.slice(2)[0]
+    var process = rawRes["process"]
+    var header = JSON.parse(rawRes["headers"])
+    var table = JSON.parse(rawRes["data"])
 
     // console.log(process)
     // console.log(header)

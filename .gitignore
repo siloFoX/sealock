@@ -1,7 +1,7 @@
 image/
 node_modules/
 models/
-public/uploads
+public/uploads/
 
 template.html
 .ngrok.exe.old
