@@ -1,6 +1,7 @@
 // TODO :
-var URL = "http://localhost:3000";
-// var URL = "https://f28e2e69.ngrok.io/ajax";
+
+// var URL = "http://localhost:3000";
+var URL = "https://7d307031.ngrok.io";
 
 var
     $$ = function(id) {
