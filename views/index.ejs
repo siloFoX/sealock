@@ -83,6 +83,8 @@
                                 <span class = "static-info-name">해당번호기판번호 : </span>
                                 <span id = "info-board-number" class = "info-info">1</span>
                             </div>
+
+                            <input type = "file" id = "file" class = "custom-file-input">
                         </form>
                         <!-- <div>
                             <input type="file" class="form-control-file border">
@@ -94,9 +96,8 @@
 
             <div class = "col-sm-9">
                 <div class = "panel panel-default">
-                    <div class="panel-heading">
-                        <span class="panel-head">Process : </span>                        
-                        <select id = "dropdown" class = "dropdown process-color" onchange = "dropChange()">
+                    <div class="panel-heading">                       
+                        <select id = "dropdown" class = "dropdown process-style" onchange = "dropChange()">
                             <option value = "샘플준비">샘플준비</option>
                             <option value = "세정1">세정1</option>
                             <option value = "세정2">세정2</option>
@@ -123,7 +124,12 @@
                             <option value = "측정">측정</option>
                             <optgroup label = "==================="></optgroup>
                             <option value = "Add">Add</option>
-                        </select> 
+                        </select>
+
+                        <select id = "mode-select-dropdown" class = "dropdown mode-style" onchange = "modeDropChange()">
+                            <option value = "Upload-mode">Upload Mode</option>
+                            <option value = "Update-mode">Update Mode</option>
+                        </select>
 
                             <span class = "console">&nbsp;&nbsp;&nbsp;State &nbsp;:&nbsp;</span>
                             <span id = "tableconsole" class = "console">Click " Upload sheet to DB " to save data to server</span>

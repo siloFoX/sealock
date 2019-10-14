@@ -61,10 +61,18 @@
     font-weight: 700;
     /* margin-right: 200px; */
 }
-.process-color{
+.process-style{
+    float: left;
     width: 200px;
     background-color: #c2c2c2;
     /*color: #ffffff; */
+}
+
+.mode-style{
+    margin-left: 15px;
+    padding-left: 20px;
+    width: 150px;
+    background-color: #c2c2c2;
 }
 
 
