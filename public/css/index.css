@@ -205,6 +205,13 @@
 }
 
 
+.responsive-img{
+
+    width: 50%;
+    height: 20%;
+
+}
+
 /* #link {color: #E45635;display:block;font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;text-align:center; text-decoration: none;}
 #link:hover {color: #CCCCCC}
 

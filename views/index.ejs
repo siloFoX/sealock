@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 
@@ -95,13 +98,42 @@
                                 <span class = "static-info-name">해당번호기판번호 : </span>
                                 <span id = "info-board-number" class = "info-info">1</span>
                             </div>
+
+
+                    
                         </form>
                         <!-- <div>
                             <input type="file" class="form-control-file border">
                         </div> -->
+                        
+                        <div class="container">
+
+                        <h5 class = "h5-header">File uploader</h5>
+                        <%= typeof msg != 'undefined' ? msg : '' %>
+                     <form action="/upload" method="POST" enctype="multipart/form-data">
+                        <div class="file-field input-field">
+                            <div class="btn grey">
+                                <span>File</span>
+                                <input name="image" type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">submit</button>
+                    <br>
+                    <br>
+                    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+                    </form>
+                    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                        crossorigin="anonymous"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
                     </div>
 
+                </div>
+
+                
         
                                            
             </div>
