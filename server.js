@@ -94,6 +94,40 @@ app.post('/axios', function (req, res) {
 
 })
 
+var multer = require('multer');
+var path = require('path');
+
+var storage = multer.diskStorage({
+    destination : './public/uploads/',
+    filename : (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+var upload = multer({
+    storage : storage,
+    limits : {fileSize : 3000000},
+}).single('image');
+
+app.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if(err) {
+            res.render('index', {msg : err});
+        }
+        else {
+            if(req.file == undefined) {
+                res.render('index', {msg : 'No file Selected'});
+            }
+            else {
+                res.render('index', {
+                    msg : 'file uploaded',
+                    file : `uploads/${req.file.filename}`
+                })
+            }
+        }
+    })
+});
+
 
 app.listen(3000);
 
