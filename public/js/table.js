@@ -59,9 +59,13 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
     var process = dropdown.options[dropdown.selectedIndex].value
     var headers = processess[process] 
-    var url_tmp = URL + "/ajax"
+    var url_tmp = URL + "/axios"
 
-    var req = "[[\"" + process + "\"]," + JSON.stringify(headers) + "," + JSON.stringify(hot.getData()) + "]"
+    var req = { 
+                "process" : process,
+                "headers" : JSON.stringify(headers),
+                "data" : JSON.stringify(hot.getData())
+                }
 
     exampleConsole.innerText = 'Loading ...';
     
@@ -69,25 +73,22 @@ Handsontable.dom.addEvent(save, 'click', function() {
         crossOrigin : true,
         url : url_tmp,
         method : 'POST',
-        dataType : 'text',
+        dataType : 'json',
         data : req,
-        responseType : 'json',
-        success : function (res) {
-            var response = JSON.parse(res);
-
-            if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
-                alert('Data saved')
-            }
-            else {
-                exampleConsole.innerText = 'Save error';
-                alert('Save error')
-            }
-        }
+        responseType : 'json'
     }
     axios(config)
-    .then(res =>{
-        console.log(res.data)
+    .then(res => {
+        var response = res["data"];
+
+        if (response["result"] === 'ok') {
+            exampleConsole.innerText = 'Data saved';
+            alert('Data saved')
+        }
+        else {
+            exampleConsole.innerText = 'Save error';
+            alert('Save error')
+        }
     })
 
     alert("Save query sended")
