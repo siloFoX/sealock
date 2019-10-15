@@ -97,6 +97,10 @@
     padding-top: 30px;
 }
 
+.files{
+    margin-top: 90px;
+}
+
 .filebox input[type="file"] 
 { 
     position: absolute;
@@ -142,6 +146,12 @@
     -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
     -moz-appearance: none; 
     appearance: none; 
+}
+
+.submit{
+    margin-top: 20px;
+    margin-right: 5px;
+    float: right ;
 }
 
 /* .sidebar{
