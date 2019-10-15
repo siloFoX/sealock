@@ -17,6 +17,7 @@ var
     info_name = $$('info-name'),
     info_board_number = $$('info-board-number'),
     dummy_btn = $$('default'),
+    mode = $$('mode-select-dropdown'),
     hot;
 
 var selected_row = null
@@ -44,7 +45,9 @@ function render_table() {
         },
         licenseKey: "non-commercial-and-evaluation",
         afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
-            select_picture(row, column, row2, column2, headers, hot)
+            if (mode.options[mode.selectedIndex].value == "Update-mode"){
+                select_picture(row, column, row2, column2, headers, hot)
+            }
         }
     });
 
@@ -153,6 +156,7 @@ function parentDropChange() {
 }
 
 function select_picture(row, column, row2, column2, headers, hot) {
+
     if((row != row2) || (column != column2)){
         return;
     }

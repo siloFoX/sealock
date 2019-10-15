@@ -65,36 +65,43 @@
 
                         <hr style="border: solid 1px; color: rgb(212, 212, 212)">
 
-                        <div class = "file-upload-header">
-                            <h5 class = "h5-header">File upload</h5>
+                        <div id = "file-uploader" class = "hide">
+
+                            <div class = "file-upload-header">
+                                <h5 class = "h5-header">File upload</h5>
+                            </div>
+
+                            <form>
+                                <div id = "date" class = "sidebar-info">
+                                    <span class = "static-info-name">날짜 : </span>
+                                    <span id = "info-date" class = "info-info">20191011</span>
+                                </div>
+                                <div id = "name" class = "sidebar-info">
+                                    <span class = "static-info-name">이름 : </span>
+                                    <span id = "info-name" class = "info-info">홍길동</span>
+                                </div>
+                                <div id = "board-number" class = "sidebar-info">
+                                    <span class = "static-info-name">해당번호기판번호 : </span>
+                                    <span id = "info-board-number" class = "info-info">1</span>
+                                </div>
+                                
+                                <div class="filebox">
+                                    <div class = "files">
+                                        <label for="ex_filename">Upload</label>  
+                                        <input class = "upload-name" value = "File Name" disabled="disabled"> 
+                                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                                    </div>
+                                </div>
+                                
+                                <div class = "submit">
+                                    <button id = "submit" type = "submit" class = "btn">Submit</button>
+                                </div>
+                            </form>
                         </div>
 
-                        <form>
-                            <div id = "date" class = "sidebar-info">
-                                <span class = "static-info-name">날짜 : </span>
-                                <span id = "info-date" class = "info-info">20191011</span>
-                            </div>
-                            <div id = "name" class = "sidebar-info">
-                                <span class = "static-info-name">이름 : </span>
-                                <span id = "info-name" class = "info-info">홍길동</span>
-                            </div>
-                            <div id = "board-number" class = "sidebar-info">
-                                <span class = "static-info-name">해당번호기판번호 : </span>
-                                <span id = "info-board-number" class = "info-info">1</span>
-                            </div>
-                            
-                            <div class="filebox">
-                                <div class = "files">
-                                    <label for="ex_filename">Upload</label>  
-                                    <input class = "upload-name" value = "File Name" disabled="disabled"> 
-                                    <input type="file" id="ex_filename" class="upload-hidden"> 
-                                </div>
-                            </div>
-                            
-                            <div class = "submit">
-                                <button id = "submit" type = "submit" class = "btn">Submit</button>
-                            </div>
-                        </form>
+                        <div id = "test">
+                            <button class = 'btn'>heyhey</button>
+                        </div>
             
                     </div>
                    
