@@ -1,7 +1,7 @@
 // TODO :
 
-// var URL = "http://localhost:3000";
-var URL = "https://7d307031.ngrok.io";
+var URL = "http://localhost:3000";
+// var URL = "https://7d307031.ngrok.io";
 
 var
     $$ = function(id) {
@@ -63,7 +63,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
     var process = dropdown.options[dropdown.selectedIndex].value
     var headers = processess[process] 
-    var url_tmp = URL + "/axios"
+    var url_tmp = URL + "/table"
 
     var req = { 
                 "process" : process,
@@ -111,6 +111,7 @@ function dropChange() {
     
     hot.destroy()
     render_table()
+    render_memo()
 }
 
 function parentDropChange() {

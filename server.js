@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 //     var rawReq = req.body
 // })
 
-app.post('/axios', function (req, res) {
+app.post('/table', function (req, res) {
     console.log("save query is requested")
 
     var rawReq = req.body
@@ -40,6 +40,7 @@ app.post('/axios', function (req, res) {
     fs.readFile('./query/collection_allocate.json', function(err, file) {
         if(err) {
             console.error("Collection allocation Error ", err)
+            res.json({"result" : "fail"})
         }
 
         var dict = JSON.parse(file);
@@ -98,39 +99,67 @@ app.post('/axios', function (req, res) {
 
 })
 
-var multer = require('multer');
-var path = require('path');
+app.post('/memo', function(req, res) {
+    var rawReq = req.body
 
-var storage = multer.diskStorage({
-    destination : './public/uploads/',
-    filename : (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
+    var process = rawReq["process"]
+    var data = rawReq["data"]
 
-var upload = multer({
-    storage : storage,
-    limits : {fileSize : 3000000},
-}).single('image');
+    console.log("Memo changed : " + JSON.stringify(rawReq))
 
-app.post('/upload', (req, res) => {
-    upload(req, res, (err) => {
+    fs.readFile('./public/json/memo.json', function(err, file) {
         if(err) {
-            res.render('index', {msg : err});
+            console.error("Memo file read Error ", err)
+            res.json({"result" : "fail"})
         }
-        else {
-            if(req.file == undefined) {
-                res.render('index', {msg : 'No file Selected'});
+
+        var memo = JSON.parse(file)
+
+        memo[process] = data
+
+        fs.writeFile('./public/json/memo.json',JSON.stringify(memo) , function(err) {
+            if (err) {
+                console.error("Memo file write Error ", err)
+                res.json({"result" : "fail"})
             }
-            else {
-                res.render('index', {
-                    msg : 'file uploaded',
-                    file : `uploads/${req.file.filename}`
-                })
-            }
-        }
-    })
-});
+            res.json({"result" : "ok"})
+        })
+    });
+})
+
+// var multer = require('multer');
+// var path = require('path');
+
+// var storage = multer.diskStorage({
+//     destination : './public/uploads/',
+//     filename : (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
+
+// var upload = multer({
+//     storage : storage,
+//     limits : {fileSize : 3000000},
+// }).single('image');
+
+// app.post('/upload', (req, res) => {
+//     upload(req, res, (err) => {
+//         if(err) {
+//             res.render('index', {msg : err});
+//         }
+//         else {
+//             if(req.file == undefined) {
+//                 res.render('index', {msg : 'No file Selected'});
+//             }
+//             else {
+//                 res.render('index', {
+//                     msg : 'file uploaded',
+//                     file : `uploads/${req.file.filename}`
+//                 })
+//             }
+//         }
+//     })
+// });
 
 
 app.listen(3000);
