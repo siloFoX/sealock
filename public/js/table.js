@@ -111,7 +111,10 @@ function dropChange() {
     
     hot.destroy()
     render_table()
-    render_memo()
+
+    if(mode.options[mode.selectedIndex].value === "Upload-mode"){
+        render_memo()
+    }
 }
 
 function parentDropChange() {

@@ -12,7 +12,7 @@ function modeDropChange() {
         file_uploader.className = "hide"
         memo.className = ""
 
-
+        render_memo()
 
         alert('Upload mode is activated')
     }
