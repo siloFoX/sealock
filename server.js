@@ -1,6 +1,8 @@
-var fs = require('fs');
+var fs = require('fs-extra');
+var path = require('path');
 var bodyParser = require('body-parser');
 var express = require('express');
+var formidable = require('formidable');
 var app = express();
 
 var mongo = require('mongodb')
@@ -262,7 +264,6 @@ app.post('/update', function (req, res) {
                     }
                     else {
                         console.log("Query Successs")
-                        console.log("|")
                     }
                 });
 
@@ -275,43 +276,81 @@ app.post('/update', function (req, res) {
             else {
                 res.json({"result" : "fail"})
             }
+
+            console.log("Query end")
         });
     });
 })
 
-// var multer = require('multer');
-// var path = require('path');
+app.post('/file', function (req, res) {
+    var form = new formidable.IncomingForm();
 
-// var storage = multer.diskStorage({
-//     destination : './public/uploads/',
-//     filename : (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     }
-// });
+    form.uploadDir = './files'
+    form.keepExtensions = true
 
-// var upload = multer({
-//     storage : storage,
-//     limits : {fileSize : 3000000},
-// }).single('image');
+    form.on('file', function(field, value) {
+        console.log(field + " : " + value.name)
+        fs.rename(value.path, form.uploadDir + '/' + value.name);
+    });
 
-// app.post('/upload', (req, res) => {
-//     upload(req, res, (err) => {
-//         if(err) {
-//             res.render('index', {msg : err});
-//         }
-//         else {
-//             if(req.file == undefined) {
-//                 res.render('index', {msg : 'No file Selected'});
-//             }
-//             else {
-//                 res.render('index', {
-//                     msg : 'file uploaded',
-//                     file : `uploads/${req.file.filename}`
-//                 })
-//             }
-//         }
-//     })
-// });
+    form.on('end', function(field, value) {
+        console.log("file transmition end")
+    });
+
+    form.on('error', function(err) {
+        if(err) {
+            console.error("file transmition Error ", err)
+            res.json({"result" : "fail"})
+            return;
+        }
+    });
+
+    form.parse(req, function(err, field, file) {
+        if(err) {
+            console.error("file parsing Error : ", err)
+            res.json({"result" : "fail"})
+            return;
+        }
+
+        var file_name = file["file"].name
+        var splited_name = file_name.split("_")
+        var file_path = path.join(__dirname, "files", file_name)
+
+        var process = splited_name[0]
+        var object_query = {}
+        object_query["_id"] = new mongo.ObjectID(splited_name[1])
+
+        fs.readFile('./query/collection_allocate.json', function(err, file) {
+            if(err) {
+                console.error("Collection allocation Error ", err)
+                res.json({"result" : "fail"})
+                return;
+            }
+    
+            var dict = JSON.parse(file);
+            var collection = dict[process]
+
+            MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+                if(err) {
+                    console.error("Mongodb connection Error ", err)
+                    res.json({"result" : "fail"})
+                    return;
+                }
+
+                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : { "사진" : file_path } }, function (err) {
+                    if(err) {
+                        console.error("Input file path Error ", err)
+                        res.json({"result" : "fail"})
+                    }
+                    else {
+                        console.log("file path is inserted")
+                        res.json({"result" : "ok"})
+                    }
+                });
+            });
+        });
+    });
+});
 
 app.listen(3000);
 

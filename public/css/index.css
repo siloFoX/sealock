@@ -128,7 +128,7 @@
     border-bottom-color: #e2e2e2; 
     border-radius: 4px;
 }
-.filebox .upload-name 
+.filebox .file-name 
 { 
     margin-top: 20px;
     width: 66.6% !important;
@@ -148,7 +148,7 @@
     appearance: none; 
 }
 
-.submit{
+.submit-file{
     margin-top: 20px;
     margin-right: 5px;
     float: right ;

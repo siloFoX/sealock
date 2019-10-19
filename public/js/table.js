@@ -3,7 +3,7 @@ var URL = "http://localhost:3000";
 
 var
     $$ = function(id) {
-    return document.getElementById(id);
+        return document.getElementById(id);
     },
 
     container = $$('table'),
@@ -11,9 +11,6 @@ var
     dropdown = $$('dropdown'),
     parentDropdown = $$('parent-dropdown'),
     save = $$('save'),
-    info_date = $$('info-date'),
-    info_name = $$('info-name'),
-    info_board_number = $$('info-board-number'),
     dummy_btn = $$('default'),
     mode = $$('mode-select-dropdown'),
     hot;
@@ -48,7 +45,6 @@ function render_table(Data = null) {
             licenseKey: "non-commercial-and-evaluation",
             afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
                     select_picture(row, column, row2, column2, headers, hot)
-                
             }
         });    
     }
@@ -192,77 +188,47 @@ function dropChange() {
     }
 }
 
-function parentDropChange() {
-    if(parentDropdown.options[parentDropdown.selectedIndex].value == "SmartProcess"){
+// function parentDropChange() {
+//     if(parentDropdown.options[parentDropdown.selectedIndex].value == "SmartProcess"){
         
-    alert(parentDropdown.options[parentDropdown.selectedIndex].value)
+//     alert(parentDropdown.options[parentDropdown.selectedIndex].value)
 
-        dropdown.innerHTML = `
-            <option value = '샘플준비'>샘플준비</option>
-            <option value = '세정1'>세정1</option>
-            <option value = '세정2'>세정2</option>
-            <option value = '세정3'>세정3</option>
-            <option value = '세정블로윙'>세정블로윙</option>
-            <option value = '프리스퍼터링'>프리스퍼터링</option>
-            <option value = '스퍼터링'>스퍼터링</option>
-            <option value = '열처리'>열처리</option>
-            <option value = 'PR핸드블로윙'>PR핸드블로윙</option>
-            <option value = 'HDMS코팅'>HDMS코팅</option>
-            <option value = 'PR코팅'>PR코팅</option>
-            <option value = 'PR베이킹'>PR베이킹</option>
-            <option value = '클로로벤젠처리'>클로로벤젠처리</option>
-            <option value = '클로로벤젠세정후블로윙'>클로로벤젠세정후블로윙</option>
-            <option value = '노광'>노광</option>
-            <option value = '현상'>현상</option>
-            <option value = '현상액세정후블로윙'>현상액세정후블로윙</option>
-            <option value = '이베포레이션샘플거치'>이베포레이션샘플거치</option>
-            <option value = '스트립-담그기'>스트립-담그기</option>
-            <option value = '스트립-뿌리기'>스트립-뿌리기</option>
-            <option value = '산화막제거'>산화막제거</option>
-            <option value = '실버페이스트도포'>실버페이스트도포</option>
-            <option value = '실버페이스트건조'>실버페이스트건조</option>
-            <option value = '측정'>측정</option>
-            <optgroup label = '=========================='></optgroup>
-            <option value = 'Add'>Add</option>`
-    }
-    else{
-        alert("Add mode is not supported in this version.")
-        dropdown.innerHTML = `
-            <option value = 'dummy'>dummy</option>
-            <optgroup label = '=========================='></optgroup>
-            <option value = 'Add'>Add</option>`
-    }
-}
-
-function select_picture(row, column, row2, column2, headers, hot) {
-
-    if((row != row2) || (column != column2)){
-        return;
-    }
-    if(headers[column] == "사진" && (selected_row != row || first_picture_select)){
-        first_picture_select = false
-        selected_row = row
-
-        sidebar_picture(hot.getData()[row])
-    }
-    else{
-        first_picture_select = true
-        selected_row = row
-    }
-}
-
-function sidebar_picture(data){
-    info_date.innerHTML = data[1]
-    info_name.innerHTML = data[2]
-    info_board_number.innerHTML = data[3]
-
-    if(data[1] && data[2] && data[3]){
-        alert("Go to left tab and save your file.")
-    }
-    else{
-        alert("Please fill in your data for save image")
-    }
-}
+//         dropdown.innerHTML = `
+//             <option value = '샘플준비'>샘플준비</option>
+//             <option value = '세정1'>세정1</option>
+//             <option value = '세정2'>세정2</option>
+//             <option value = '세정3'>세정3</option>
+//             <option value = '세정블로윙'>세정블로윙</option>
+//             <option value = '프리스퍼터링'>프리스퍼터링</option>
+//             <option value = '스퍼터링'>스퍼터링</option>
+//             <option value = '열처리'>열처리</option>
+//             <option value = 'PR핸드블로윙'>PR핸드블로윙</option>
+//             <option value = 'HDMS코팅'>HDMS코팅</option>
+//             <option value = 'PR코팅'>PR코팅</option>
+//             <option value = 'PR베이킹'>PR베이킹</option>
+//             <option value = '클로로벤젠처리'>클로로벤젠처리</option>
+//             <option value = '클로로벤젠세정후블로윙'>클로로벤젠세정후블로윙</option>
+//             <option value = '노광'>노광</option>
+//             <option value = '현상'>현상</option>
+//             <option value = '현상액세정후블로윙'>현상액세정후블로윙</option>
+//             <option value = '이베포레이션샘플거치'>이베포레이션샘플거치</option>
+//             <option value = '스트립-담그기'>스트립-담그기</option>
+//             <option value = '스트립-뿌리기'>스트립-뿌리기</option>
+//             <option value = '산화막제거'>산화막제거</option>
+//             <option value = '실버페이스트도포'>실버페이스트도포</option>
+//             <option value = '실버페이스트건조'>실버페이스트건조</option>
+//             <option value = '측정'>측정</option>
+//             <optgroup label = '=========================='></optgroup>
+//             <option value = 'Add'>Add</option>`
+//     }
+//     else{
+//         alert("Add mode is not supported in this version.")
+//         dropdown.innerHTML = `
+//             <option value = 'dummy'>dummy</option>
+//             <optgroup label = '=========================='></optgroup>
+//             <option value = 'Add'>Add</option>`
+//     }
+// }
 
 dummy_btn.addEventListener('click', function () {
     alert("There is no PRO version now.")

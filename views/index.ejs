@@ -72,6 +72,10 @@
                             </div>
 
                             <form>
+                                <div id = "_id" class = "sidebar-info">
+                                    <span class = "static-info-name">_id : </span>
+                                    <span id = "info-id" class = "info-info">0a0aaa0a000</span>
+                                </div>
                                 <div id = "date" class = "sidebar-info">
                                     <span class = "static-info-name">날짜 : </span>
                                     <span id = "info-date" class = "info-info">20191011</span>
@@ -84,19 +88,22 @@
                                     <span class = "static-info-name">해당번호기판번호 : </span>
                                     <span id = "info-board-number" class = "info-info">1</span>
                                 </div>
+
+                                <div id = "real_id" class = "hide"></div>
                                 
                                 <div class="filebox">
                                     <div class = "files">
-                                        <label for = "ex_filename">Upload</label>  
-                                        <input class = "upload-name" value = "File Name" disabled="disabled"> 
-                                        <input type = "file" id = "ex_filename" class = "upload-hidden"> 
+                                        <label for = "file-select">Upload</label>  
+                                        <input class = "file-name" id = file-name value = "File Name" disabled="disabled"> 
+                                        <input type = "file" id = "file-select" class = "upload-hidden"> 
                                     </div>
                                 </div>
-                                
-                                <div class = "submit">
-                                    <button id = "submit" type = "submit" class = "btn">Submit</button>
-                                </div>
                             </form>
+                            
+                            <div class = "submit-file">
+                                <button id = "submit" class = "btn">Submit</button>
+                            </div>
+                            
 
                         </div>
 

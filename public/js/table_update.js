@@ -100,9 +100,13 @@ function save_memo() {
 
         if (response["result"] === 'ok') {
             console.log("success")
+            
+            exampleConsole.innerText = 'Memo updated';
         }
         else {
             console.log("fail")
+            
+            exampleConsole.innerText = "Memo isn't updated. check the logs";
         }
     })
 }
