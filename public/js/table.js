@@ -1,5 +1,3 @@
-// TODO :
-
 var URL = "http://localhost:3000";
 // var URL = "https://183a8a74.ngrok.io";
 
