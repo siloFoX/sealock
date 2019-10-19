@@ -40,7 +40,7 @@ app.post('/table', function (req, res) {
     // console.log(header.length)
     // console.log(table)
 
-    fs.readFile('./query/collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) {
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
@@ -101,7 +101,7 @@ app.post('/table', function (req, res) {
     });
 
 
-    // fs.appendFile('./stored_data/logs.txt', JSON.stringify(req.body), 'utf8', function (err) {
+    // fs.appendFile('./logs/logs.txt', JSON.stringify(req.body), 'utf8', function (err) {
     //     if (err) {
     //         console.error(err)
     //     }
@@ -145,7 +145,7 @@ app.post('/process', function(req, res) {
 
     // console.log(req.body)
 
-    fs.readFile('./query/collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) {
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
@@ -196,7 +196,7 @@ app.post('/update', function (req, res) {
     // console.log(header.length)
     // console.log(table)
 
-    fs.readFile('./query/collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) {
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
@@ -320,7 +320,7 @@ app.post('/file', function (req, res) {
         var object_query = {}
         object_query["_id"] = new mongo.ObjectID(splited_name[1])
 
-        fs.readFile('./query/collection_allocate.json', function(err, file) {
+        fs.readFile('./collection_allocate.json', function(err, file) {
             if(err) {
                 console.error("Collection allocation Error ", err)
                 res.json({"result" : "fail"})
