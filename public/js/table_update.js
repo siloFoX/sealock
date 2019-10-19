@@ -33,7 +33,7 @@ function modeDropChange() {
         hot.destroy()
         renderDatafromDB()
         save.innerHTML = "Update"
-        exampleConsole.innerText = 'Click " Update " to save data to server';
+        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
         
         alert('Update mode is activated. please Wait few seconds')
     }

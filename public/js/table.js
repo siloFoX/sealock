@@ -27,10 +27,21 @@ function render_table(Data = null) {
 
     if(inner_data) {
         headers = Object.keys(inner_data[0])
+        var headers_except_id = headers.slice(1)
+
+        var columns = []
+        columns.push({ data : "_id", readOnly : true })
+
+        for (var colHeaderIdx in headers_except_id) {
+            columns.push({ data : headers_except_id[colHeaderIdx] })
+        }
+
+        console.log(columns)
 
         hot = new Handsontable(container, {
             data: inner_data,
             colHeaders: headers,
+            columns: columns,
             rowHeaders: true,
             height: 520,
             width: '100%',
@@ -159,7 +170,7 @@ container.onchange = function () {
         exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " to update data to server';
+        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
     }
 }
 
@@ -184,7 +195,7 @@ function dropChange() {
         exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " to update data to server';
+        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
     }
 }
 

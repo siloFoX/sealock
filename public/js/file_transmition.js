@@ -49,6 +49,10 @@ submit.addEventListener('click', function() {
         alert("Input the file and submit please")
         return;
     }
+    if(real_id.innerHTML === "") {
+        alert("Select the column please")
+        return;
+    }
 
     alert("File Submitting..")
     exampleConsole.innerText = 'Loading ...';
@@ -76,16 +80,19 @@ submit.addEventListener('click', function() {
             alert("file upload success")
             hot.destroy()
             renderDatafromDB()
-
-            exampleConsole.innerText = 'Click " Update " to save data to server';
         }
         else {
             console.log("fail")
             alert("file upload failed")
-
-            exampleConsole.innerText = 'Click " Update " to save data to server';
         }
     })
 
+    exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+    file_select.form.reset()
     file_name.value = "File Name"
+    info_id.innerHTML = ""
+    info_date.innerHTML = ""
+    info_name.innerHTML = ""
+    info_board_number.innerHTML = ""
+    real_id.innerHTML = ""
 });
