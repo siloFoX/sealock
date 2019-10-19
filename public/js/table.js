@@ -1,7 +1,7 @@
 // TODO :
 
 var URL = "http://localhost:3000";
-// var URL = "https://7d307031.ngrok.io";
+// var URL = "https://183a8a74.ngrok.io";
 
 var
     $$ = function(id) {
@@ -25,33 +25,55 @@ var first_picture_select = true
 
 render_table()
 
-function render_table() {
+function render_table(Data = null) {
     var process = dropdown.options[dropdown.selectedIndex].value 
-    var headers = processess[process] 
+    var headers = processess[process]
+    var inner_data = Data
 
-    hot = new Handsontable(container, {
-        data: Handsontable.helper.createSpreadsheetData(19, headers.length),
-        colHeaders: headers,
-        rowHeaders: true,
-        height: 520,
-        width: '100%',
-        minSpareRows: 1,
-        manualColumnResize: true,
-        manualRowResize: false,
-        headerTooltips: {
-            rows: false,
-            columns: true,
-            onlyTrimmed: true
-        },
-        licenseKey: "non-commercial-and-evaluation",
-        afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
-            if (mode.options[mode.selectedIndex].value == "Update-mode"){
-                select_picture(row, column, row2, column2, headers, hot)
+    if(inner_data) {
+        headers = Object.keys(inner_data[0])
+
+        hot = new Handsontable(container, {
+            data: inner_data,
+            colHeaders: headers,
+            rowHeaders: true,
+            height: 520,
+            width: '100%',
+            minSpareRows: 1,
+            manualColumnResize: true,
+            manualRowResize: false,
+            headerTooltips: {
+                rows: false,
+                columns: true,
+                onlyTrimmed: true
+            },
+            licenseKey: "non-commercial-and-evaluation",
+            afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
+                    select_picture(row, column, row2, column2, headers, hot)
+                
             }
-        }
-    });
+        });    
+    }
+    else {
+        hot = new Handsontable(container, {
+            data: Handsontable.helper.createSpreadsheetData(19, headers.length),
+            colHeaders: headers,
+            rowHeaders: true,
+            height: 520,
+            width: '100%',
+            minSpareRows: 1,
+            manualColumnResize: true,
+            manualRowResize: false,
+            headerTooltips: {
+                rows: false,
+                columns: true,
+                onlyTrimmed: true
+            },
+            licenseKey: "non-commercial-and-evaluation"
+        });
 
-    hot.clear()
+        hot.clear()
+    }
 }
 
 Handsontable.dom.addEvent(save, 'click', function() {
@@ -61,46 +83,90 @@ Handsontable.dom.addEvent(save, 'click', function() {
         return;
     }
 
-    var process = dropdown.options[dropdown.selectedIndex].value
-    var headers = processess[process] 
-    var url_tmp = URL + "/table"
+    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
+        var process = dropdown.options[dropdown.selectedIndex].value
+        var headers = processess[process] 
+        var url_tmp = URL + "/table"
 
-    var req = { 
-                "process" : process,
-                "headers" : JSON.stringify(headers),
-                "data" : JSON.stringify(hot.getData())
-                }
+        var req = { 
+                    "process" : process,
+                    "headers" : JSON.stringify(headers),
+                    "data" : JSON.stringify(hot.getData())
+                    }
 
-    exampleConsole.innerText = 'Loading ...';
-    
-    var config = {
-        crossOrigin : true,
-        url : url_tmp,
-        method : 'POST',
-        dataType : 'json',
-        data : req,
-        responseType : 'json'
+        exampleConsole.innerText = 'Loading ...';
+        
+        var config = {
+            crossOrigin : true,
+            url : url_tmp,
+            method : 'POST',
+            dataType : 'json',
+            data : req,
+            responseType : 'json'
+        }
+        axios(config)
+        .then(res => {
+            var response = res["data"];
+
+            if (response["result"] === 'ok') {
+                exampleConsole.innerText = 'Data saved';
+                alert('Data saved')
+            }
+            else {
+                exampleConsole.innerText = 'Save error';
+                alert('Save error')
+            }
+        })
+
+        alert("Save query sended")
+        hot.clear()
     }
-    axios(config)
-    .then(res => {
-        var response = res["data"];
+    else if(mode.options[mode.selectedIndex].value === "Update-mode") {
+        var process = dropdown.options[dropdown.selectedIndex].value
+        var headers = hot.getColHeader()
+        var url_tmp = URL + "/update"
 
-        if (response["result"] === 'ok') {
-            exampleConsole.innerText = 'Data saved';
-            alert('Data saved')
+        var req = { 
+            "process" : process,
+            "headers" : JSON.stringify(headers),
+            "data" : JSON.stringify(hot.getData())
+            }
+        
+            exampleConsole.innerText = 'Loading ...';
+        
+        var config = {
+            crossOrigin : true,
+            url : url_tmp,
+            method : 'POST',
+            dataType : 'json',
+            data : req,
+            responseType : 'json'
         }
-        else {
-            exampleConsole.innerText = 'Save error';
-            alert('Save error')
-        }
-    })
+        axios(config)
+        .then(res => {
+            var response = res["data"];
 
-    alert("Save query sended")
-    hot.clear()
+            if (response["result"] === 'ok') {
+                exampleConsole.innerText = 'Data saved';
+                alert('Data saved')
+            }
+            else {
+                exampleConsole.innerText = 'Update error';
+                alert('Update error')
+            }
+        })
+
+        alert("Update query sended")
+    }
 });
 
 container.onchange = function () {
-    exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
+        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+    }
+    else if (mode.options[mode.selectedIndex].value === "Update-mode") {
+        exampleConsole.innerText = 'Click " Update " to update data to server';
+    }
 }
 
 function dropChange() {
@@ -108,12 +174,23 @@ function dropChange() {
         alert("This mode is not supported in this version.")
         return;
     }
-    
-    hot.destroy()
-    render_table()
 
     if(mode.options[mode.selectedIndex].value === "Upload-mode"){
         render_memo()
+
+        hot.destroy()
+        render_table()
+    }
+    else{
+        hot.destroy()
+        renderDatafromDB()
+    }
+
+    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
+        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+    }
+    else if (mode.options[mode.selectedIndex].value === "Update-mode") {
+        exampleConsole.innerText = 'Click " Update " to update data to server';
     }
 }
 
@@ -177,11 +254,11 @@ function select_picture(row, column, row2, column2, headers, hot) {
 }
 
 function sidebar_picture(data){
-    info_date.innerHTML = data[0]
-    info_name.innerHTML = data[1]
-    info_board_number.innerHTML = data[2]
+    info_date.innerHTML = data[1]
+    info_name.innerHTML = data[2]
+    info_board_number.innerHTML = data[3]
 
-    if(data[0] && data[1] && data[2]){
+    if(data[1] && data[2] && data[3]){
         alert("Go to left tab and save your file.")
     }
     else{

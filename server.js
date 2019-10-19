@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 
+var mongo = require('mongodb')
 var MongoClient = require('mongodb').MongoClient;
 
 app.use(express.static(__dirname + '/public'));
@@ -41,6 +42,7 @@ app.post('/table', function (req, res) {
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
+            return;
         }
 
         var dict = JSON.parse(file);
@@ -54,6 +56,8 @@ app.post('/table', function (req, res) {
                 res.json({"result" : "fail"})
                 return;
             }
+
+            var success = true
 
             for (tableIdx in table){
                 var queryTable = {}
@@ -77,15 +81,19 @@ app.post('/table', function (req, res) {
                 client.db("SmartProcess").collection(collection).insertOne(queryTable, function (err) {
                     if(err) {
                         console.error("Query Error ", err)
-
-                        res.json({"result" : "fail"})
+                        success = false
                     }
                     else{
                         console.log("Query Successs")
-
-                        res.json({"result" : "ok"})
                     }
                 });
+            }
+
+            if(success) {
+                res.json({"result" : "ok"})
+            }
+            else {
+                res.json({"result" : "fail"})
             }
         });
     });
@@ -111,6 +119,7 @@ app.post('/memo', function(req, res) {
         if(err) {
             console.error("Memo file read Error ", err)
             res.json({"result" : "fail"})
+            return;
         }
 
         var memo = JSON.parse(file)
@@ -124,6 +133,149 @@ app.post('/memo', function(req, res) {
             }
             res.json({"result" : "ok"})
         })
+    });
+})
+
+app.post('/process', function(req, res) {
+    var rawReq = req.body
+
+    var process = rawReq["process"]
+
+    // console.log(req.body)
+
+    fs.readFile('./query/collection_allocate.json', function(err, file) {
+        if(err) {
+            console.error("Collection allocation Error ", err)
+            res.json({"result" : "fail"})
+            return;
+        }
+
+        var dict = JSON.parse(file);
+        var collection = dict[process]
+        
+        MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            if(err) {
+                console.error("Mongodb connection Error ", err)
+                res.json({"result" : "fail"})
+                return;
+            }
+
+            client.db("SmartProcess").collection(collection).find({}).toArray(function(err, result) {
+                if(err) {
+                    console.error("Collection find Error : ", err)
+                    res.json({"result" : "fail"})
+                }
+                else if (!result[0]) {
+                    console.error("There's no Collection that name")
+                    res.json({"result" : "fail"})
+                }
+                else {
+                    // console.log(result)
+                    console.log("Update mode : Collection data sending complete")
+                    
+                    res.json(result)
+                }
+            });
+        });
+    });
+});
+
+app.post('/update', function (req, res) {
+    console.log("save query is requested")
+
+    var rawReq = req.body
+
+    var process = rawReq["process"]
+    var header = JSON.parse(rawReq["headers"])
+    var table = JSON.parse(rawReq["data"])
+
+    // console.log(process)
+    // console.log(header)
+    // console.log(header.length)
+    // console.log(table)
+
+    fs.readFile('./query/collection_allocate.json', function(err, file) {
+        if(err) {
+            console.error("Collection allocation Error ", err)
+            res.json({"result" : "fail"})
+            return;
+        }
+
+        var dict = JSON.parse(file);
+        var collection = dict[process]
+
+        // console.log(collection)
+
+        MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            if(err) {
+                console.error("Mongodb connection Error ", err)
+                res.json({"result" : "fail"})
+                return;
+            }
+
+            var success = true
+
+            for (tableIdx in table){
+                var object_id = null
+                var object_query = {}
+                var queryTable = {}
+                var tableRow = table[tableIdx]
+
+                if (tableRow[0] === null){
+                    continue;
+                }
+
+                object_id = tableRow[0]
+                object_query["_id"] = new mongo.ObjectID(object_id)
+
+                console.log(object_query)
+
+                for (var idx = 1; idx < header.length; idx++){
+                    if(header[idx] == ""){
+                        break;
+                    }
+                    else{
+                        queryTable[header[idx]] = tableRow[idx]    
+                    }
+                }
+
+                client.db("SmartProcess").collection(collection).find(object_query).toArray(function(err, result) {
+                    if(err) {
+                        console.error("Query Error ", err)
+                        success = false
+                    }
+                    else if(!result[0]) {
+                        console.log("Object not found")
+                        success = false
+                    }
+                    else {
+                        console.log(result)
+                        console.log("Object found")
+                        console.log("==>")
+                    }
+                });
+                
+                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
+                    if(err) {
+                        console.error("Query Error ", err)
+                        success = false
+                    }
+                    else {
+                        console.log("Query Successs")
+                        console.log("|")
+                    }
+                });
+
+                console.log(queryTable)
+            }
+
+            if(success) {
+                res.json({"result" : "ok"})
+            }
+            else {
+                res.json({"result" : "fail"})
+            }
+        });
     });
 })
 

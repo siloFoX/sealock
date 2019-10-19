@@ -12,16 +12,32 @@ function modeDropChange() {
         file_uploader.className = "hide"
         memo.className = ""
 
+        if(dropdown.options[dropdown.selectedIndex].value === "dummy") {
+            return;
+        }
+        
+        hot.destroy()
+        render_table(null)
         render_memo()
+        save.innerHTML = "Upload sheet to DB"
+        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
 
         alert('Upload mode is activated')
     }
-    else{
+    else if (mode.options[mode.selectedIndex].value == "Update-mode") {
         file_uploader.className = ""
         memo.className = "hide"
 
+        if(dropdown.options[dropdown.selectedIndex].value === "dummy") {
+            return;
+        }
+
+        hot.destroy()
+        renderDatafromDB()
+        save.innerHTML = "Update"
+        exampleConsole.innerText = 'Click " Update " to save data to server';
         
-        alert('Update mode is activated')
+        alert('Update mode is activated. please Wait few seconds')
     }
 }
 
@@ -91,4 +107,38 @@ function save_memo() {
             console.log("fail")
         }
     })
+}
+
+// getDatafromDB()
+
+function renderDatafromDB () {
+    var process = dropdown.options[dropdown.selectedIndex].value
+    var url_tmp = URL + "/process"
+    var req = { "process" : process }
+
+    var config = {
+        crossOrigin : true,
+        url : url_tmp,
+        method : 'POST',
+        dataType : 'json',
+        data : req,
+        responseType : 'json'
+    }
+
+    axios(config).then(res => {
+        var response = res["data"];
+
+        if (response["result"] === 'fail') {
+            alert("FAIL : Check the logs")
+        }
+        else {
+            render_table(response)
+        }
+    })
+}
+
+function sleep (delay) {
+    var start = new Date().getTime();
+    exampleConsole.innerText = 'Loading ...';
+    while (new Date().getTime() < start + delay);
 }
