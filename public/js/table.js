@@ -1,6 +1,7 @@
 // TODO :
-var URL = "http://localhost:3000";
+//var URL = "http://localhost:3000";
 // var URL = "https://f28e2e69.ngrok.io/ajax";
+
 
 var
     $$ = function(id) {
@@ -26,28 +27,40 @@ render_table()
 function render_table() {
     var process = dropdown.options[dropdown.selectedIndex].value 
     var headers = processess[process] 
+    
 
-    hot = new Handsontable(container, {
-        data: Handsontable.helper.createSpreadsheetData(19, headers.length),
-        colHeaders: headers,
+    
+     hot = new Handsontable(table, {
+        //data: Handsontable.helper.createSpreadsheetData(50, 50),
+        data: firstData,
+        language: 'pl-PL',
+        colHeaders: true,
         rowHeaders: true,
-        height: 520,
-        width: '100%',
         minSpareRows: 1,
         manualColumnResize: true,
         manualRowResize: false,
+        colWidths: 140,
+        width: '100%',
+        height: 320,
+        fixedRowsTop: 1,
+        fixedColumnsLeft: 0,
         headerTooltips: {
-            rows: false,
-            columns: true,
-            onlyTrimmed: true
+        rows: false,
+        columns: true,
+        onlyTrimmed: true,
+        colWidths: '100%',
+        width: '100%',
+        height: 320,
+      
         },
+
+        
         licenseKey: "non-commercial-and-evaluation",
         afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
             select_picture(row, column, row2, column2, headers, hot)
         }
     });
 
-    hot.clear()
 }
 
 Handsontable.dom.addEvent(save, 'click', function() {
@@ -178,3 +191,27 @@ function sidebar_picture(data){
 dummy_btn.addEventListener('click', function () {
     alert("There is no PRO version now.")
 });
+
+
+
+
+var button1 = document.getElementById('exportfile');
+var exportPlugin1 = hot.getPlugin('exportFile');
+
+button1.addEventListener('click', function() {
+  exportPlugin1.downloadFile('csv', {
+    bom: false,
+    columnDelimiter: ',',
+    columnHeaders: false,
+    exportHiddenColumns: true,
+    exportHiddenRows: true,
+    fileExtension: 'csv',
+    filename: 'CSV-file_[YYYY]-[MM]-[DD]',
+    mimeType: 'text/csv',
+    rowDelimiter: '\r\n',
+    rowHeaders: true
+  });
+});
+
+    
+ 
