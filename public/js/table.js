@@ -1,4 +1,4 @@
-var URL = "http://localhost:3000";
+var URL = "http://223.194.70.112:3000"
 // var URL = "https://183a8a74.ngrok.io";
 
 var
@@ -241,6 +241,6 @@ function dropChange() {
 //     }
 // }
 
-dummy_btn.addEventListener('click', function () {
-    alert("There is no PRO version now.")
-});
+// dummy_btn.addEventListener('click', function () {
+//     alert("There is no PRO version now.")
+// });
