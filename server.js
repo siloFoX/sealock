@@ -1,46 +1,45 @@
-var fs = require('fs-extra');
-var path = require('path');
-var bodyParser = require('body-parser');
-var express = require('express');
-var formidable = require('formidable');
-var app = express();
+// front
+var fs = require('fs-extra'); // file system
+var path = require('path'); 
+var bodyParser = require('body-parser'); // POST : resolution for request body vanishing 
+var express = require('express'); // web framework
+var formidable = require('formidable'); // receive data from form
+var app = express(); 
 
-var mongo = require('mongodb')
+// back
+var mongo = require('mongodb') 
 var MongoClient = require('mongodb').MongoClient;
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+// file and query
+app.use(express.static(__dirname + '/public')); // default directory for both client and server
+app.use(bodyParser.urlencoded({extended:true})); // extended url encoding 
+app.use(bodyParser.json()); // default format of body
 
+// web engine
 app.engine('html', require('ejs').__express);
 
-app.set('views', __dirname + '/views');
+// web settings
+app.set('views', __dirname + '/views'); // default directiory for rendering
+app.set('view engine', 'ejs'); // set engine
 
-app.set('view engine', 'ejs');
-
-app.get('/', function (req, res) {
+// GET
+// GET : root 
+app.get('/', function (req, res) { 
     res.render('index');
 })
 
-// app.get('/update', function(req, res) {
-//     var rawReq = req.body
-// })
-
+// POST
+// POST : from table to DB
 app.post('/table', function (req, res) {
     console.log("save query is requested")
 
     var rawReq = req.body
 
     var process = rawReq["process"]
-    var header = JSON.parse(rawReq["headers"])
+    var header = JSON.parse(rawReq["headers"]) // key value
     var table = JSON.parse(rawReq["data"])
 
-    // console.log(process)
-    // console.log(header)
-    // console.log(header.length)
-    // console.log(table)
-
-    fs.readFile('./collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) { // process name mapping Korean -> English
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
@@ -48,10 +47,10 @@ app.post('/table', function (req, res) {
         }
 
         var dict = JSON.parse(file);
-        var collection = dict[process]
+        var collection = dict[process] // mapping
 
-        // console.log(collection)
-
+        // DB part
+        // connect DB
         MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
@@ -59,16 +58,17 @@ app.post('/table', function (req, res) {
                 return;
             }
 
-            var success = true
+            var success = true // if error occur, success = false 
 
-            for (tableIdx in table){
-                var queryTable = {}
-                var tableRow = table[tableIdx]
+            for (tableIdx in table){ // tableIdx(index) : 0 ~ table.size() - 1 
+                var queryTable = {} 
+                var tableRow = table[tableIdx] // deal row by row
 
-                if (tableRow[0] === null){
+                if (tableRow[0] === null){ // if date information is empty, ignore this query
                     continue;
                 }
 
+                // queryTable = { "header[i]" : "A[i]_data", "header[i]" : "B[i]_data", ... }
                 for (var idx = 0; idx < header.length; idx++){
                     if(header[idx] == ""){
                         break;
@@ -78,8 +78,9 @@ app.post('/table', function (req, res) {
                     }
                 }
 
-                console.log(queryTable)
+                console.log(queryTable) 
 
+                // send one query
                 client.db("SmartProcess").collection(collection).insertOne(queryTable, function (err) {
                     if(err) {
                         console.error("Query Error ", err)
@@ -91,6 +92,7 @@ app.post('/table', function (req, res) {
                 });
             }
 
+            // response to client
             if(success) {
                 res.json({"result" : "ok"})
             }
@@ -100,6 +102,7 @@ app.post('/table', function (req, res) {
         });
     });
 
+    // TODO : make log file
 
     // fs.appendFile('./logs/logs.txt', JSON.stringify(req.body), 'utf8', function (err) {
     //     if (err) {
@@ -109,15 +112,15 @@ app.post('/table', function (req, res) {
 
 })
 
+// POST : update memo
 app.post('/memo', function(req, res) {
     var rawReq = req.body
 
-    var process = rawReq["process"]
+    var process = rawReq["process"] // process in memo is Korean so don't have to convert to English
     var data = rawReq["data"]
 
-    console.log("Memo changed : " + JSON.stringify(rawReq))
-
-    fs.readFile('./public/json/memo.json', function(err, file) {
+    // read entire memo
+    fs.readFile('./public/json/memo.json', function(err, file) { 
         if(err) {
             console.error("Memo file read Error ", err)
             res.json({"result" : "fail"})
@@ -126,8 +129,9 @@ app.post('/memo', function(req, res) {
 
         var memo = JSON.parse(file)
 
-        memo[process] = data
+        memo[process] = data // change just one part(one process)
 
+        // overwrite the file
         fs.writeFile('./public/json/memo.json',JSON.stringify(memo) , function(err) {
             if (err) {
                 console.error("Memo file write Error ", err)
@@ -136,25 +140,27 @@ app.post('/memo', function(req, res) {
             res.json({"result" : "ok"})
         })
     });
+
+    console.log("Memo changed : " + JSON.stringify(rawReq))
 })
 
+// POST : send all data from DB's each process
 app.post('/process', function(req, res) {
     var rawReq = req.body
 
     var process = rawReq["process"]
 
-    // console.log(req.body)
-
-    fs.readFile('./collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) { // convert KR -> EN
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
             return;
         }
 
-        var dict = JSON.parse(file);
+        var dict = JSON.parse(file)
         var collection = dict[process]
         
+        // DB query
         MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
@@ -162,17 +168,17 @@ app.post('/process', function(req, res) {
                 return;
             }
 
+            // send all data from process
             client.db("SmartProcess").collection(collection).find({}).toArray(function(err, result) {
                 if(err) {
                     console.error("Collection find Error : ", err)
                     res.json({"result" : "fail"})
                 }
-                else if (!result[0]) {
-                    console.error("There's no Collection that name")
+                else if (!result[0]) { // If query wrong collection(process) name, It return "{}" not undefined. So I this could happen
+                    console.error("There's no Collection has that name")
                     res.json({"result" : "fail"})
                 }
                 else {
-                    // console.log(result)
                     console.log("Update mode : Collection data sending complete")
                     
                     res.json(result)
@@ -182,6 +188,7 @@ app.post('/process', function(req, res) {
     });
 });
 
+// POST : update query at each process
 app.post('/update', function (req, res) {
     console.log("save query is requested")
 
@@ -191,12 +198,7 @@ app.post('/update', function (req, res) {
     var header = JSON.parse(rawReq["headers"])
     var table = JSON.parse(rawReq["data"])
 
-    // console.log(process)
-    // console.log(header)
-    // console.log(header.length)
-    // console.log(table)
-
-    fs.readFile('./collection_allocate.json', function(err, file) {
+    fs.readFile('./collection_allocate.json', function(err, file) { // convert KR -> EN
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})
@@ -206,8 +208,7 @@ app.post('/update', function (req, res) {
         var dict = JSON.parse(file);
         var collection = dict[process]
 
-        // console.log(collection)
-
+        // DB
         MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
@@ -218,29 +219,30 @@ app.post('/update', function (req, res) {
             var success = true
 
             for (tableIdx in table){
-                var object_id = null
-                var object_query = {}
-                var queryTable = {}
+                var object_id = null // use object_ID for find place which We want to update
+                var object_query = {} // query for find
+                var queryTable = {} // query for update
                 var tableRow = table[tableIdx]
 
-                if (tableRow[0] === null){
+                if (tableRow[0] === null){ // Can't find without object_ID
                     continue;
                 }
 
                 object_id = tableRow[0]
-                object_query["_id"] = new mongo.ObjectID(object_id)
+                object_query["_id"] = new mongo.ObjectID(object_id) // MongoDB's ObjectID format
 
-                console.log(object_query)
+                console.log("finding for update : " + object_query)
 
                 for (var idx = 1; idx < header.length; idx++){
-                    if(header[idx] == ""){
+                    if(header[idx] == ""){ // break for strange headers
                         break;
                     }
                     else{
-                        queryTable[header[idx]] = tableRow[idx]    
+                        queryTable[header[idx]] = tableRow[idx]
                     }
                 }
 
+                // data which wants to change
                 client.db("SmartProcess").collection(collection).find(object_query).toArray(function(err, result) {
                     if(err) {
                         console.error("Query Error ", err)
@@ -257,6 +259,7 @@ app.post('/update', function (req, res) {
                     }
                 });
                 
+                // change data
                 client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
                     if(err) {
                         console.error("Query Error ", err)
@@ -267,8 +270,11 @@ app.post('/update', function (req, res) {
                     }
                 });
 
+                // see how it changed
                 console.log(queryTable)
             }
+
+            console.log("Query end")
 
             if(success) {
                 res.json({"result" : "ok"})
@@ -276,27 +282,29 @@ app.post('/update', function (req, res) {
             else {
                 res.json({"result" : "fail"})
             }
-
-            console.log("Query end")
         });
     });
 })
 
+// POST : upload file
 app.post('/file', function (req, res) {
-    var form = new formidable.IncomingForm();
+    var form = new formidable.IncomingForm(); // use formidable to make our form 
 
-    form.uploadDir = './files'
-    form.keepExtensions = true
+    form.uploadDir = './files' // where it will upload
+    form.keepExtensions = true // not change extension
 
+    // deal with file form(field == "file", value is file) 
     form.on('file', function(field, value) {
         console.log(field + " : " + value.name)
         fs.rename(value.path, form.uploadDir + '/' + value.name);
     });
 
+    // logging when file transmition is over
     form.on('end', function(field, value) {
         console.log("file transmition end")
     });
 
+    // error catch
     form.on('error', function(err) {
         if(err) {
             console.error("file transmition Error ", err)
@@ -305,6 +313,7 @@ app.post('/file', function (req, res) {
         }
     });
 
+    // execute file upload formidable
     form.parse(req, function(err, field, file) {
         if(err) {
             console.error("file parsing Error : ", err)
@@ -312,15 +321,15 @@ app.post('/file', function (req, res) {
             return;
         }
 
-        var file_name = file["file"].name
-        var splited_name = file_name.split("_")
-        var file_path = path.join(__dirname, "files", file_name)
+        var file_name = file["file"].name // file_name = "process_ObjectID_originalName.extension"
+        var splited_name = file_name.split("_") // splited_name = [ "process", "ObjectId", "orginalName.extension" ]
+        var file_path = path.join(__dirname, "files", file_name) // where file existing
 
         var process = splited_name[0]
         var object_query = {}
         object_query["_id"] = new mongo.ObjectID(splited_name[1])
 
-        fs.readFile('./collection_allocate.json', function(err, file) {
+        fs.readFile('./collection_allocate.json', function(err, file) { // convert KR -> EN
             if(err) {
                 console.error("Collection allocation Error ", err)
                 res.json({"result" : "fail"})
@@ -330,6 +339,7 @@ app.post('/file', function (req, res) {
             var dict = JSON.parse(file);
             var collection = dict[process]
 
+            // DB
             MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
                 if(err) {
                     console.error("Mongodb connection Error ", err)
@@ -337,6 +347,7 @@ app.post('/file', function (req, res) {
                     return;
                 }
 
+                // path is inserted in column "사진" 
                 client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : { "사진" : file_path } }, function (err) {
                     if(err) {
                         console.error("Input file path Error ", err)
@@ -352,6 +363,6 @@ app.post('/file', function (req, res) {
     });
 });
 
-app.listen(3000);
+app.listen(3000); // port number
 
-console.log('Server running on port 3000');
+console.log('Server running on port 3000'); // start sign
