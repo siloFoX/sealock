@@ -1,5 +1,6 @@
-var URL = "http://223.194.70.112:3000"
-// var URL = "https://183a8a74.ngrok.io";
+// URL for client
+var URL = "http://localhost:3000"
+// var URL = "http://223.194.70.112:3000"
 
 var
     $$ = function(id) {
@@ -17,6 +18,7 @@ var
 
 var selected_row = null
 var first_picture_select = true
+var update_container_changed = false
 
 render_table()
 
@@ -36,7 +38,7 @@ function render_table(Data = null) {
             columns.push({ data : headers_except_id[colHeaderIdx] })
         }
 
-        console.log(columns)
+        update_container_changed = false
 
         hot = new Handsontable(container, {
             data: inner_data,
@@ -57,7 +59,7 @@ function render_table(Data = null) {
             afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
                     select_picture(row, column, row2, column2, headers, hot)
             }
-        });    
+        });
     }
     else {
         hot = new Handsontable(container, {
@@ -100,6 +102,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
                     }
 
         exampleConsole.innerText = 'Loading ...';
+        exampleConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -115,10 +118,12 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
             if (response["result"] === 'ok') {
                 exampleConsole.innerText = 'Data saved';
+                exampleConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
                 exampleConsole.innerText = 'Save error';
+                exampleConsole.style = "color : red"
                 alert('Save error')
             }
         })
@@ -138,6 +143,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
             }
         
             exampleConsole.innerText = 'Loading ...';
+            exampleConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -153,24 +159,29 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
             if (response["result"] === 'ok') {
                 exampleConsole.innerText = 'Data saved';
+                exampleConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
-                exampleConsole.innerText = 'Update error';
-                alert('Update error')
+                exampleConsole.innerText = 'Upload error';
+                exampleConsole.style = "color : red"
+                alert('Upload error')
             }
         })
 
-        alert("Update query sended")
+        alert("Upload query sended")
     }
 });
 
 container.onchange = function () {
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
         exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        exampleConsole.style = "color : red;"
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
         exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        exampleConsole.style = "color : red;"
+        update_container_changed = true
     }
 }
 
@@ -193,9 +204,11 @@ function dropChange() {
 
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
         exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        exampleConsole.style = ""
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
         exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        exampleConsole.style = ""
     }
 }
 

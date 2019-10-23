@@ -22,21 +22,37 @@ function select_picture(row, column, row2, column2, headers, hot) {
     else{
         first_picture_select = true
         selected_row = row
+
+        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+
+        if(update_container_changed) {
+            exampleConsole.style = "color : red;"
+        }
+        else {
+            exampleConsole.style = ""
+        }
     }
 }
 
 function sidebar_picture(data){
-    info_id.innerHTML = data[0].slice(13)
+    if(data[0] === null) {
+        info_id.innerHTML = ""
+    }
+    else {
+        info_id.innerHTML = data[0].slice(13)
+    }
     info_date.innerHTML = data[1]
     info_name.innerHTML = data[2]
     info_board_number.innerHTML = data[3]
     real_id.innerHTML = data[0]
 
     if(data[1] && data[2] && data[3]){
-        alert("Go to left tab and save your file.")
+        exampleConsole.innerText = "Go to left tab & select file."
+        exampleConsole.style = "color : red;"
     }
     else{
-        alert("Please fill in your data for save image")
+        exampleConsole.innerText = "fill in cell for upload file"
+        exampleConsole.style = "color : red;"
     }
 }
 
@@ -56,6 +72,7 @@ submit.addEventListener('click', function() {
 
     alert("File Submitting..")
     exampleConsole.innerText = 'Loading ...';
+    exampleConsole.style = ""
 
     var req = new FormData();
     var url_tmp = URL + '/file'
@@ -78,16 +95,23 @@ submit.addEventListener('click', function() {
         if (response["result"] === 'ok') {
             console.log("success")
             alert("file upload success")
+
+            exampleConsole.innerText = 'File upload success';
+            exampleConsole.style = "color : red;"
+
             hot.destroy()
             renderDatafromDB()
         }
         else {
             console.log("fail")
             alert("file upload failed")
+            
+            exampleConsole.innerText = 'File upload Failed';
+            exampleConsole.style = "color : red;"
         }
     })
 
-    exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+    update_container_changed = false
     file_select.form.reset()
     file_name.value = "File Name"
     info_id.innerHTML = ""
