@@ -23,13 +23,13 @@ function select_picture(row, column, row2, column2, headers, hot) {
         first_picture_select = true
         selected_row = row
 
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
 
         if(update_container_changed) {
-            exampleConsole.style = "color : red;"
+            adviceConsole.style = "color : red;"
         }
         else {
-            exampleConsole.style = ""
+            adviceConsole.style = ""
         }
     }
 }
@@ -47,12 +47,12 @@ function sidebar_picture(data){
     real_id.innerHTML = data[0]
 
     if(data[1] && data[2] && data[3]){
-        exampleConsole.innerText = "Go to left tab & select file."
-        exampleConsole.style = "color : red;"
+        adviceConsole.innerText = "Go to left tab & select file."
+        adviceConsole.style = "color : red;"
     }
     else{
-        exampleConsole.innerText = "fill in cell for upload file"
-        exampleConsole.style = "color : red;"
+        adviceConsole.innerText = "fill in cell for upload file"
+        adviceConsole.style = "color : red;"
     }
 }
 
@@ -71,8 +71,8 @@ submit.addEventListener('click', function() {
     }
 
     alert("File Submitting..")
-    exampleConsole.innerText = 'Loading ...';
-    exampleConsole.style = ""
+    adviceConsole.innerText = 'Loading ...';
+    adviceConsole.style = ""
 
     var req = new FormData();
     var url_tmp = URL + '/file'
@@ -96,8 +96,8 @@ submit.addEventListener('click', function() {
             console.log("success")
             alert("file upload success")
 
-            exampleConsole.innerText = 'File upload success';
-            exampleConsole.style = "color : red;"
+            adviceConsole.innerText = 'File upload success';
+            adviceConsole.style = "color : red;"
 
             hot.destroy()
             renderDatafromDB()
@@ -106,8 +106,8 @@ submit.addEventListener('click', function() {
             console.log("fail")
             alert("file upload failed")
             
-            exampleConsole.innerText = 'File upload Failed';
-            exampleConsole.style = "color : red;"
+            adviceConsole.innerText = 'File upload Failed';
+            adviceConsole.style = "color : red;"
         }
     })
 

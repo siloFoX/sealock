@@ -18,8 +18,8 @@ function modeDropChange() {
         render_table(null)
         render_memo()
         save.innerHTML = "Upload sheet to DB"
-        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
-        exampleConsole.style = ""
+        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.style = ""
 
         alert('Upload mode is activated')
     }
@@ -34,8 +34,8 @@ function modeDropChange() {
         hot.destroy()
         renderDatafromDB()
         save.innerHTML = "Update"
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
-        exampleConsole.style = ""
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.style = ""
         
         alert('Update mode is activated. please Wait few seconds')
     }
@@ -103,14 +103,14 @@ function save_memo() {
         if (response["result"] === 'ok') {
             console.log("success")
             
-            exampleConsole.innerText = 'Memo updated';
-            exampleConsole.style = "color : red;"
+            adviceConsole.innerText = 'Memo updated';
+            adviceConsole.style = "color : red;"
         }
         else {
             console.log("fail")
             
-            exampleConsole.innerText = "Memo isn't updated. check the logs";
-            exampleConsole.style = "color : red;"
+            adviceConsole.innerText = "Memo isn't updated. check the logs";
+            adviceConsole.style = "color : red;"
         }
     })
 }
@@ -145,6 +145,6 @@ function renderDatafromDB () {
 
 function sleep (delay) {
     var start = new Date().getTime();
-    exampleConsole.innerText = 'Loading ...';
+    adviceConsole.innerText = 'Loading ...';
     while (new Date().getTime() < start + delay);
 }

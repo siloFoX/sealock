@@ -7,8 +7,8 @@ var
         return document.getElementById(id);
     },
 
-    container = $$('table'),
-    exampleConsole = $$('tableconsole'),
+    container = $$('table'), // table container
+    adviceConsole = $$('tableconsole'),
     dropdown = $$('dropdown'),
     parentDropdown = $$('parent-dropdown'),
     save = $$('save'),
@@ -101,8 +101,8 @@ Handsontable.dom.addEvent(save, 'click', function() {
                     "data" : JSON.stringify(hot.getData())
                     }
 
-        exampleConsole.innerText = 'Loading ...';
-        exampleConsole.style = ""
+        adviceConsole.innerText = 'Loading ...';
+        adviceConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -117,13 +117,13 @@ Handsontable.dom.addEvent(save, 'click', function() {
             var response = res["data"];
 
             if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
-                exampleConsole.style = "color : red"
+                adviceConsole.innerText = 'Data saved';
+                adviceConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
-                exampleConsole.innerText = 'Save error';
-                exampleConsole.style = "color : red"
+                adviceConsole.innerText = 'Save error';
+                adviceConsole.style = "color : red"
                 alert('Save error')
             }
         })
@@ -142,8 +142,8 @@ Handsontable.dom.addEvent(save, 'click', function() {
             "data" : JSON.stringify(hot.getData())
             }
         
-            exampleConsole.innerText = 'Loading ...';
-            exampleConsole.style = ""
+            adviceConsole.innerText = 'Loading ...';
+            adviceConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -158,13 +158,13 @@ Handsontable.dom.addEvent(save, 'click', function() {
             var response = res["data"];
 
             if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
-                exampleConsole.style = "color : red"
+                adviceConsole.innerText = 'Data saved';
+                adviceConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
-                exampleConsole.innerText = 'Upload error';
-                exampleConsole.style = "color : red"
+                adviceConsole.innerText = 'Upload error';
+                adviceConsole.style = "color : red"
                 alert('Upload error')
             }
         })
@@ -175,12 +175,12 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
 container.onchange = function () {
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
-        exampleConsole.style = "color : red;"
+        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.style = "color : red;"
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
-        exampleConsole.style = "color : red;"
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.style = "color : red;"
         update_container_changed = true
     }
 }
@@ -203,12 +203,12 @@ function dropChange() {
     }
 
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
-        exampleConsole.style = ""
+        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.style = ""
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
-        exampleConsole.style = ""
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.style = ""
     }
 }
 
