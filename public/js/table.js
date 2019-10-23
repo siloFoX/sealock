@@ -2,22 +2,20 @@
 var URL = "http://localhost:3000"
 // var URL = "http://223.194.70.112:3000"
 
-var
+var // DOM controller get by ID
     $$ = function(id) {
         return document.getElementById(id);
     },
 
     container = $$('table'), // table container
     adviceConsole = $$('tableconsole'),
-    dropdown = $$('dropdown'),
-    parentDropdown = $$('parent-dropdown'),
-    save = $$('save'),
-    dummy_btn = $$('default'),
-    mode = $$('mode-select-dropdown'),
+    dropdown = $$('dropdown'), // process dropdown
+    parentDropdown = $$('parent-dropdown'), // SmartProcess dropdown
+    save = $$('save'), // upload and update button
+    dummy_btn = $$('default'), // dummy
+    mode = $$('mode-select-dropdown'), // mode selector dropdown
     hot;
 
-var selected_row = null
-var first_picture_select = true
 var update_container_changed = false
 
 render_table()
@@ -63,10 +61,10 @@ function render_table(Data = null) {
     }
     else {
         hot = new Handsontable(container, {
-            data: Handsontable.helper.createSpreadsheetData(19, headers.length),
+            data: Handsontable.helper.createSpreadsheetData(10, headers.length),
             colHeaders: headers,
             rowHeaders: true,
-            height: 520,
+            height: 300,
             width: '100%',
             minSpareRows: 1,
             manualColumnResize: true,

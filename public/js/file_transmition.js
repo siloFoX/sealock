@@ -8,6 +8,9 @@ var
     info_board_number = $$('info-board-number'),
     real_id = $$('real_id');
 
+var selected_row = null
+var first_picture_select = true
+
 function select_picture(row, column, row2, column2, headers, hot) {
 
     if((row != row2) || (column != column2)){

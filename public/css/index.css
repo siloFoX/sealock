@@ -80,6 +80,9 @@
     padding-top: 35px !important;
     padding-bottom: 0px !important;
 } */
+.advice-console{
+    padding-top : 10px;
+}
 .console{
     padding-left: 0px;
     color: rgb(136, 138, 255);
