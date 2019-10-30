@@ -26,6 +26,7 @@ function render_table(Data = null) {
     var inner_data = Data
 
     if(inner_data) {
+
         headers = Object.keys(inner_data[0])
         var headers_except_id = headers.slice(1)
 
@@ -60,6 +61,20 @@ function render_table(Data = null) {
         });
     }
     else {
+        const height_size = 10
+
+        var columns = []
+        var row = []
+
+        for (var i = 0; i < headers.length; i++) {
+            row.push("")
+        }
+        for (var i = 1; i < height_size; i++) {
+            columns.push(row)
+        }
+
+        console.log(columns)
+
         hot = new Handsontable(container, {
             data: Handsontable.helper.createSpreadsheetData(10, headers.length),
             colHeaders: headers,
@@ -67,6 +82,7 @@ function render_table(Data = null) {
             height: 300,
             width: '100%',
             minSpareRows: 1,
+            fixedRowsTop : true,
             manualColumnResize: true,
             manualRowResize: false,
             headerTooltips: {
