@@ -1,22 +1,22 @@
-var URL = "http://localhost:3000";
-// var URL = "https://183a8a74.ngrok.io";
+// URL for client
+var URL = "http://localhost:3000"
+// var URL = "http://223.194.70.112:3000"
 
-var
+var // DOM controller get by ID
     $$ = function(id) {
         return document.getElementById(id);
     },
 
-    container = $$('table'),
-    exampleConsole = $$('tableconsole'),
-    dropdown = $$('dropdown'),
-    parentDropdown = $$('parent-dropdown'),
-    save = $$('save'),
-    dummy_btn = $$('default'),
-    mode = $$('mode-select-dropdown'),
+    container = $$('table'), // table container
+    adviceConsole = $$('tableconsole'),
+    dropdown = $$('dropdown'), // process dropdown
+    parentDropdown = $$('parent-dropdown'), // SmartProcess dropdown
+    save = $$('save'), // upload and update button
+    dummy_btn = $$('default'), // dummy
+    mode = $$('mode-select-dropdown'), // mode selector dropdown
     hot;
 
-var selected_row = null
-var first_picture_select = true
+var update_container_changed = false
 
 render_table()
 
@@ -26,6 +26,7 @@ function render_table(Data = null) {
     var inner_data = Data
 
     if(inner_data) {
+
         headers = Object.keys(inner_data[0])
         var headers_except_id = headers.slice(1)
 
@@ -36,7 +37,7 @@ function render_table(Data = null) {
             columns.push({ data : headers_except_id[colHeaderIdx] })
         }
 
-        console.log(columns)
+        update_container_changed = false
 
         hot = new Handsontable(container, {
             data: inner_data,
@@ -57,16 +58,31 @@ function render_table(Data = null) {
             afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
                     select_picture(row, column, row2, column2, headers, hot)
             }
-        });    
+        });
     }
     else {
+        const height_size = 10
+
+        var columns = []
+        var row = []
+
+        for (var i = 0; i < headers.length; i++) {
+            row.push("")
+        }
+        for (var i = 1; i < height_size; i++) {
+            columns.push(row)
+        }
+
+        console.log(columns)
+
         hot = new Handsontable(container, {
-            data: Handsontable.helper.createSpreadsheetData(19, headers.length),
+            data: Handsontable.helper.createSpreadsheetData(10, headers.length),
             colHeaders: headers,
             rowHeaders: true,
-            height: 520,
+            height: 300,
             width: '100%',
             minSpareRows: 1,
+            fixedRowsTop : true,
             manualColumnResize: true,
             manualRowResize: false,
             headerTooltips: {
@@ -99,7 +115,8 @@ Handsontable.dom.addEvent(save, 'click', function() {
                     "data" : JSON.stringify(hot.getData())
                     }
 
-        exampleConsole.innerText = 'Loading ...';
+        adviceConsole.innerText = 'Loading ...';
+        adviceConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -114,11 +131,13 @@ Handsontable.dom.addEvent(save, 'click', function() {
             var response = res["data"];
 
             if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
+                adviceConsole.innerText = 'Data saved';
+                adviceConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
-                exampleConsole.innerText = 'Save error';
+                adviceConsole.innerText = 'Save error';
+                adviceConsole.style = "color : red"
                 alert('Save error')
             }
         })
@@ -137,7 +156,8 @@ Handsontable.dom.addEvent(save, 'click', function() {
             "data" : JSON.stringify(hot.getData())
             }
         
-            exampleConsole.innerText = 'Loading ...';
+            adviceConsole.innerText = 'Loading ...';
+            adviceConsole.style = ""
         
         var config = {
             crossOrigin : true,
@@ -152,25 +172,30 @@ Handsontable.dom.addEvent(save, 'click', function() {
             var response = res["data"];
 
             if (response["result"] === 'ok') {
-                exampleConsole.innerText = 'Data saved';
+                adviceConsole.innerText = 'Data saved';
+                adviceConsole.style = "color : red"
                 alert('Data saved')
             }
             else {
-                exampleConsole.innerText = 'Update error';
-                alert('Update error')
+                adviceConsole.innerText = 'Upload error';
+                adviceConsole.style = "color : red"
+                alert('Upload error')
             }
         })
 
-        alert("Update query sended")
+        alert("Upload query sended")
     }
 });
 
 container.onchange = function () {
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.style = "color : red;"
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.style = "color : red;"
+        update_container_changed = true
     }
 }
 
@@ -192,10 +217,12 @@ function dropChange() {
     }
 
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        exampleConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        adviceConsole.style = ""
     }
     else if (mode.options[mode.selectedIndex].value === "Update-mode") {
-        exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+        adviceConsole.style = ""
     }
 }
 
@@ -241,6 +268,6 @@ function dropChange() {
 //     }
 // }
 
-dummy_btn.addEventListener('click', function () {
-    alert("There is no PRO version now.")
-});
+// dummy_btn.addEventListener('click', function () {
+//     alert("There is no PRO version now.")
+// });

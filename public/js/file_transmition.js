@@ -8,6 +8,9 @@ var
     info_board_number = $$('info-board-number'),
     real_id = $$('real_id');
 
+var selected_row = null
+var first_picture_select = true
+
 function select_picture(row, column, row2, column2, headers, hot) {
 
     if((row != row2) || (column != column2)){
@@ -22,21 +25,37 @@ function select_picture(row, column, row2, column2, headers, hot) {
     else{
         first_picture_select = true
         selected_row = row
+
+        adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+
+        if(update_container_changed) {
+            adviceConsole.style = "color : red;"
+        }
+        else {
+            adviceConsole.style = ""
+        }
     }
 }
 
 function sidebar_picture(data){
-    info_id.innerHTML = data[0].slice(13)
+    if(data[0] === null) {
+        info_id.innerHTML = ""
+    }
+    else {
+        info_id.innerHTML = data[0].slice(13)
+    }
     info_date.innerHTML = data[1]
     info_name.innerHTML = data[2]
     info_board_number.innerHTML = data[3]
     real_id.innerHTML = data[0]
 
     if(data[1] && data[2] && data[3]){
-        alert("Go to left tab and save your file.")
+        adviceConsole.innerText = "Go to left tab & select file."
+        adviceConsole.style = "color : red;"
     }
     else{
-        alert("Please fill in your data for save image")
+        adviceConsole.innerText = "fill in cell for upload file"
+        adviceConsole.style = "color : red;"
     }
 }
 
@@ -55,7 +74,8 @@ submit.addEventListener('click', function() {
     }
 
     alert("File Submitting..")
-    exampleConsole.innerText = 'Loading ...';
+    adviceConsole.innerText = 'Loading ...';
+    adviceConsole.style = ""
 
     var req = new FormData();
     var url_tmp = URL + '/file'
@@ -78,16 +98,23 @@ submit.addEventListener('click', function() {
         if (response["result"] === 'ok') {
             console.log("success")
             alert("file upload success")
+
+            adviceConsole.innerText = 'File upload success';
+            adviceConsole.style = "color : red;"
+
             hot.destroy()
             renderDatafromDB()
         }
         else {
             console.log("fail")
             alert("file upload failed")
+            
+            adviceConsole.innerText = 'File upload Failed';
+            adviceConsole.style = "color : red;"
         }
     })
 
-    exampleConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
+    update_container_changed = false
     file_select.form.reset()
     file_name.value = "File Name"
     info_id.innerHTML = ""
