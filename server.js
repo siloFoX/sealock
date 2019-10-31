@@ -22,6 +22,29 @@ app.engine('html', require('ejs').__express);
 app.set('views', __dirname + '/views'); // default directiory for rendering
 app.set('view engine', 'ejs'); // set engine
 
+// make 'file' directory
+fs.stat('./files', function(err) {
+    // when cannot find file
+    if(err) { 
+        console.log("directory 'files' does not found")
+
+        // when doesn't exist
+        if(err.code === "ENOENT") {
+            console.log("dir : does not exist")
+
+            // make dir named 'file'
+            fs.mkdir('./files', (err) => {
+                if(err) {
+                    console.error("make dir error ", err)
+                }
+                else {
+                    console.log("dir : make success")
+                }
+            })
+        }
+    }
+});
+
 // GET
 // GET : root 
 app.get('/', function (req, res) { 
