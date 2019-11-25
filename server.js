@@ -37,6 +37,6 @@ app.engine('html', require('ejs').__express);
 app.set('views', __dirname + '/views'); // default directiory for rendering
 app.set('view engine', 'ejs'); // set engine
 
-app.listen(3000); // port number
+app.listen(process.env.PORT); // port number
 
 console.log('Server running on port 3000'); // start sign
