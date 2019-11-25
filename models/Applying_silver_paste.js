@@ -14,4 +14,9 @@ var Applying_silver_paste = new Schema({
     비고:String
 })
 
+//find All
+Applying_silver_paste.statics.findAll = function() {
+    return this.find({});
+}
+
 module.exports = mongoose.model('Applying_silver_paste', Applying_silver_paste);
