@@ -22,6 +22,7 @@ mongoose.connect("mongodb://"+"223.194.70.112:27017/SmartProcess", {
 // Node.js의 native Promise 사용
 mongoose.Promise = global.Promise;
 
+
 // file and query
 app.use(express.static(__dirname + '/public')); // default directory for both client and server
 app.use(bodyParser.urlencoded({extended:true})); // extended url encoding 
@@ -36,7 +37,7 @@ app.engine('html', require('ejs').__express);
 // web settings
 app.set('views', __dirname + '/views'); // default directiory for rendering
 app.set('view engine', 'ejs'); // set engine
-app.use('/', require('./routes/main'));
+app.use('/', require('./routes/main')); // main page setting
 
 // Configure router module
 // app.use('/flights', require('./routes/round_index'));
