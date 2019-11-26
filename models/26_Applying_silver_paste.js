@@ -1,4 +1,5 @@
-    // models/Applying_silver_paste.js
+// models/26_Applying_silver_paste.js
+// "실버페이스트도포" : ["실험날짜", "실험자명", "해당실험기판번호", "실험도구", "재료", "사진", "비고"],
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
