@@ -22,4 +22,4 @@ var Chlorobenzene_treatment = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Chlorobenzene_treatment', Chlorobenzene_treatment);
+module.exports = mongoose.model('Chlorobenzene_treatment', Chlorobenzene_treatment, 'Chlorobenzene_treatment');

@@ -17,4 +17,4 @@ var PR_cooling = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('PR_cooling', PR_cooling);
+module.exports = mongoose.model('PR_cooling', PR_cooling, 'PR_cooling');

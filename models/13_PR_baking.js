@@ -17,4 +17,4 @@ var PR_baking = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('PR_baking', PR_baking);
+module.exports = mongoose.model('PR_baking', PR_baking, 'PR_baking');

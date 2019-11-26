@@ -19,4 +19,4 @@ var PR_coating = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('PR_coating', PR_coating);
+module.exports = mongoose.model('PR_coating', PR_coating, 'PR_coating');

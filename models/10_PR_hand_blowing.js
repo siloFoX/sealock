@@ -16,4 +16,4 @@ var PR_hand_blowing = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('PR_hand_blowing', PR_hand_blowing);
+module.exports = mongoose.model('PR_hand_blowing', PR_hand_blowing, 'PR_hand_blowing');

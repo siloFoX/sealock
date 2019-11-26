@@ -15,4 +15,4 @@ var Blowing_after_chlorobenzene_cleaning = new Schema({
     온도:String,
 })
 
-module.exports = mongoose.model('Blowing_after_chlorobenzene_cleaning', Blowing_after_chlorobenzene_cleaning);
+module.exports = mongoose.model('Blowing_after_chlorobenzene_cleaning', Blowing_after_chlorobenzene_cleaning, 'Blowing_after_chlorobenzene_cleaning');

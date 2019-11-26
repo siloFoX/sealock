@@ -16,4 +16,4 @@ var Cleaning_after_develop = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Cleaning_after_develop', Cleaning_after_develop);
+module.exports = mongoose.model('Cleaning_after_develop', Cleaning_after_develop, 'Cleaning_after_develop');

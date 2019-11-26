@@ -14,4 +14,4 @@ var Sample_preparation_for_evaporation = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Sample_preparation_for_evaporation', Sample_preparation_for_evaporation);
+module.exports = mongoose.model('Sample_preparation_for_evaporation', Sample_preparation_for_evaporation, 'Sample_preparation_for_evaporation');

@@ -19,4 +19,4 @@ Dry_silver_paste.statics.findAll = function() {
     return this.find({});
 }
 
-module.exports = mongoose.model('Dry_silver_paste', Dry_silver_paste);
+module.exports = mongoose.model('Dry_silver_paste', Dry_silver_paste, 'Dry_silver_paste');

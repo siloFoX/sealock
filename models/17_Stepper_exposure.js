@@ -17,4 +17,4 @@ var Stepper_exposure = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Stepper_exposure', Stepper_exposure);
+module.exports = mongoose.model('Stepper_exposure', Stepper_exposure, 'Stepper_exposure');

@@ -18,4 +18,4 @@ var Develop = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Develop', Develop);
+module.exports = mongoose.model('Develop', Develop, 'Develop');

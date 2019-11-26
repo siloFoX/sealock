@@ -17,4 +17,4 @@ var Strip_spreading = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Strip_spreading', Strip_spreading);
+module.exports = mongoose.model('Strip_spreading', Strip_spreading, 'Strip_spreading');

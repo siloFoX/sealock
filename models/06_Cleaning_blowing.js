@@ -17,4 +17,4 @@ var Cleaning_blowing = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Cleaning_blowing', Cleaning_blowing);
+module.exports = mongoose.model('Cleaning_blowing', Cleaning_blowing, 'Cleaning_blowing');

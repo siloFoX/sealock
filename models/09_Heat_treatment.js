@@ -21,4 +21,4 @@ var Heat_treatment = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Heat_treatment', Heat_treatment);
+module.exports = mongoose.model('Heat_treatment', Heat_treatment, 'Heat_treatment');

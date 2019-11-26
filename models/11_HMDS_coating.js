@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var PR_hand_blowing = new Schema({
+var HMDS_coating = new Schema({
     _id:ObjectId,
     실험날짜:String,
     실험자명:String,
@@ -16,4 +16,4 @@ var PR_hand_blowing = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('PR_hand_blowing', PR_hand_blowing);
+module.exports = mongoose.model('HMDS_coating', HMDS_coating, 'HMDS_coating');

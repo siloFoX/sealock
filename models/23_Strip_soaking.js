@@ -18,4 +18,4 @@ var Strip_soaking = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Strip_soaking', Strip_soaking);
+module.exports = mongoose.model('Strip_soaking', Strip_soaking, 'Strip_soaking');

@@ -14,4 +14,4 @@ var Sample_preparation = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Sample_preparation', Sample_preparation);
+module.exports = mongoose.model('Sample_preparation', Sample_preparation, 'Sample_preparation');

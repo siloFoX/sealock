@@ -18,4 +18,4 @@ var DI_cleaning = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('DI_cleaning', DI_cleaning);
+module.exports = mongoose.model('DI_cleaning', DI_cleaning, 'DI_cleaning');

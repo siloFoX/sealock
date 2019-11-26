@@ -20,4 +20,4 @@ Applying_silver_paste.statics.findAll = function() {
     return this.find({});
 }
 
-module.exports = mongoose.model('Applying_silver_paste', Applying_silver_paste);
+module.exports = mongoose.model('Applying_silver_paste', Applying_silver_paste, 'Applying_silver_paste');

@@ -14,4 +14,4 @@ var Oxide_removal = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Oxide_removal', Oxide_removal);
+module.exports = mongoose.model('Oxide_removal', Oxide_removal), 'Oxide_removal';

@@ -31,4 +31,4 @@ var Sputtering = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Sputtering', Sputtering);
+module.exports = mongoose.model('Sputtering', Sputtering, 'Sputtering');

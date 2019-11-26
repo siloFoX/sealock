@@ -26,4 +26,4 @@ Measure.statics.findAll = function() {
     return this.find({});
 }
 
-module.exports = mongoose.model('Measure', Measure);
+module.exports = mongoose.model('Measure', Measure,'Measure');

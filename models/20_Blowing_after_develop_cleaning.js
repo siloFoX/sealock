@@ -17,4 +17,4 @@ var Blowing_after_develop_cleaning = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Blowing_after_develop_cleaning', Blowing_after_develop_cleaning);
+module.exports = mongoose.model('Blowing_after_develop_cleaning', Blowing_after_develop_cleaning, 'Blowing_after_develop_cleaning');

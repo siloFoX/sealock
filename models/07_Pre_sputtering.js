@@ -30,4 +30,4 @@ var Pre_sputtering = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Pre_sputtering', Pre_sputtering);
+module.exports = mongoose.model('Pre_sputtering', Pre_sputtering, 'Pre_sputtering');

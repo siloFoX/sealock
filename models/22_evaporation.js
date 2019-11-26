@@ -19,4 +19,4 @@ var evaporation = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('evaporation', evaporation);
+module.exports = mongoose.model('evaporation', evaporation, 'evaporation');

@@ -18,4 +18,4 @@ var Washing3 = new Schema({
     비고:String
 })
 
-module.exports = mongoose.model('Washing3', Washing3);
+module.exports = mongoose.model('Washing3', Washing3, 'Washing3');
