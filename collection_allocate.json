@@ -27,10 +27,10 @@
     "실버페이스트도포" :"Applying_silver_paste",
     "실버페이스트건조" :"Dry_silver_paste",
     "측정" : "Measure",
-    "혼합재 준비 및 반죽" : "Paste_preparation",
-    "원재료 데이터베이스" : "Raw_material_information",
-    "프린팅장비 세팅 및 출력":"3D_printing_setup_and_results",
-    "동결융해로 세팅":"Treatment_setup",
-    "양생단계":"Treatment_environment_and_results",
-    "측정장비 세팅":"Testing_and_results_and_evaluation"
+    "혼합재 준비 및 반죽" : "Paste Preparation",
+    "원재료 데이터베이스" : "Raw Material Information",
+    "프린팅장비 세팅 및 출력" : "3D Printing Setup & Results",
+    "동결융해로 세팅" : "Treatment Setup",
+    "양생단계" : "Treatment Environment & Results",
+    "측정장비 세팅" : "Testing & Results & Evaluation"
 }

@@ -12,7 +12,7 @@ router.post('/', function(req, res) {
 
     var process = rawReq["process"]
 
-    fs.readFile('../collection_allocate.json', function(err, file) { // convert KR -> EN
+    fs.readFile('./collection_allocate.json', function(err, file) { // convert KR -> EN
         if(err) {
             console.error("Collection allocation Error ", err)
             res.json({"result" : "fail"})

@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
     var table = JSON.parse(rawReq["data"])
     
     // process name mapping Korean -> English
-    fs.readFile('../collection_allocate.json', function(err, file) { 
+    fs.readFile('./collection_allocate.json', function(err, file) { 
         
         if(err) {
             console.error("Collection allocation Error ", err)

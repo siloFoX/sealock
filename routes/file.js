@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
         var object_query = {}
         object_query["_id"] = new mongo.ObjectID(splited_name[1])
 
-        fs.readFile('../collection_allocate.json', function(err, file) { // convert KR -> EN
+        fs.readFile('./collection_allocate.json', function(err, file) { // convert KR -> EN
             if(err) {
                 console.error("Collection allocation Error ", err)
                 res.json({"result" : "fail"})
