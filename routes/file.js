@@ -44,11 +44,12 @@ router.post('/', function (req, res) {
             return;
         }
 
-        var file_name = file["file"].name // file_name = "process_ObjectID_originalName.extension"
-        var splited_name = file_name.split("_") // splited_name = [ "process", "ObjectId", "orginalName.extension" ]
+        var file_name = file["file"].name // file_name = "process_ObjectID_file-info_originalName.extension"
+        var splited_name = file_name.split("_") // splited_name = [ "process", "ObjectId", "file-info", "orginalName.extension" ]
         var file_path = path.join(__dirname, "files", file_name) // where file existing
 
         var process = splited_name[0]
+        var column = splited_name[2]
         var object_query = {}
         object_query["_id"] = new mongo.ObjectID(splited_name[1])
 
@@ -61,6 +62,8 @@ router.post('/', function (req, res) {
     
             var dict = JSON.parse(file);
             var collection = dict[process]
+            var queryTable = {}
+            queryTable[column] = file_path
 
             // DB
             MongoClient.connect('mongodb://223.194.70.112:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
@@ -70,8 +73,8 @@ router.post('/', function (req, res) {
                     return;
                 }
 
-                // path is inserted in column "사진" 
-                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : { "사진" : file_path } }, function (err) {
+                // path is inserted in column  
+                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
                     if(err) {
                         console.error("Input file path Error ", err)
                         res.json({"result" : "fail"})

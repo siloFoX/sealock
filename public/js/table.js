@@ -73,8 +73,6 @@ function render_table(Data = null) {
             columns.push(row)
         }
 
-        console.log(columns)
-
         hot = new Handsontable(container, {
             data: Handsontable.helper.createSpreadsheetData(10, headers.length),
             colHeaders: headers,
@@ -133,7 +131,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
             if (response["result"] === 'ok') {
                 adviceConsole.innerText = 'Data saved';
                 adviceConsole.style = "color : red"
-                alert('Data saved')
+                // alert('Data saved')
             }
             else {
                 adviceConsole.innerText = 'Save error';
@@ -142,7 +140,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
             }
         })
 
-        alert("Save query sended")
+        // alert("Save query sended")
         hot.clear()
     }
     else if(mode.options[mode.selectedIndex].value === "Update-mode") {
@@ -174,7 +172,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
             if (response["result"] === 'ok') {
                 adviceConsole.innerText = 'Data saved';
                 adviceConsole.style = "color : red"
-                alert('Data saved')
+                // alert('Data saved')
             }
             else {
                 adviceConsole.innerText = 'Upload error';
@@ -183,7 +181,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
             }
         })
 
-        alert("Upload query sended")
+        // alert("Upload query sended")
     }
 });
 

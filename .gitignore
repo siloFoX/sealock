@@ -1,4 +1,3 @@
 node_modules/
-files/*
 logs/logs.txt
 .env

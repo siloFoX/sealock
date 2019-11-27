@@ -21,7 +21,7 @@ function modeDropChange() {
         adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
         adviceConsole.style = ""
 
-        alert('Upload mode is activated')
+        // alert('Upload mode is activated')
     }
     else if (mode.options[mode.selectedIndex].value == "Update-mode") {
         file_uploader.className = ""
@@ -37,7 +37,7 @@ function modeDropChange() {
         adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
         adviceConsole.style = ""
         
-        alert('Update mode is activated. please Wait few seconds')
+        // alert('Update mode is activated. please Wait few seconds')
     }
 }
 
