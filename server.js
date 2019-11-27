@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 //const mongo = require('mongodb') 
 //const MongoClient = require('mongodb').MongoClient;
-// CONNECT TO MONGODB SERVER
+// CONNECT TO MONGODB SERVER 223.194.70.112
 mongoose.connect("mongodb://"+"223.194.70.112:27017/SmartProcess", {
    socketTimeoutMS: 0,
    keepAlive: true,

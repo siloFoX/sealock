@@ -13,7 +13,7 @@ router.post('/', function(req, res) {
     var data = rawReq["data"]
 
     // read entire memo
-    fs.readFile('../public/json/memo.json', function(err, file) { 
+    fs.readFile('./public/json/memo.json', function(err, file) { 
         if(err) {
             console.error("Memo file read Error ", err)
             res.json({"result" : "fail"})
@@ -25,7 +25,7 @@ router.post('/', function(req, res) {
         memo[process] = data // change just one part(one process)
 
         // overwrite the file
-        fs.writeFile('../public/json/memo.json',JSON.stringify(memo) , function(err) {
+        fs.writeFile('./public/json/memo.json',JSON.stringify(memo) , function(err) {
             if (err) {
                 console.error("Memo file write Error ", err)
                 res.json({"result" : "fail"})

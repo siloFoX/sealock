@@ -1,5 +1,5 @@
 // URL for client
-var URL = "http://localhost:3000"
+var URL = "http://223.194.70.112:3000"
 // var URL = "http://223.194.70.112:3000"
 
 var // DOM controller get by ID
