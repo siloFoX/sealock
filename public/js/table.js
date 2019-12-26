@@ -239,7 +239,7 @@ function dropChange() {
 //             <option value = '스퍼터링'>스퍼터링</option>
 //             <option value = '열처리'>열처리</option>
 //             <option value = 'PR핸드블로윙'>PR핸드블로윙</option>
-//             <option value = 'HDMS코팅'>HDMS코팅</option>
+//             <option value = 'HMDS코팅'>HMDS코팅</option>
 //             <option value = 'PR코팅'>PR코팅</option>
 //             <option value = 'PR베이킹'>PR베이킹</option>
 //             <option value = '클로로벤젠처리'>클로로벤젠처리</option>

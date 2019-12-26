@@ -37,7 +37,7 @@ router.post('/', function(req, res) {
                     res.json({"result" : "fail"})
                 }
                 else if (!result[0]) { // If query wrong collection(process) name, It return "{}" not undefined. So I this could happen
-                    console.error("There's no Collection has that name")
+                    console.error("There's no Collection has that name") // or no data in DB
                     res.json({"result" : "fail"})
                 }
                 else {
