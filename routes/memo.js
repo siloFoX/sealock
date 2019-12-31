@@ -1,4 +1,5 @@
 // routes/memo.js
+// post memo and update memo(in upload mode)
 
 var express = require('express');
 var router = express.Router();

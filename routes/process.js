@@ -1,4 +1,5 @@
 // routes/table.js
+// first page GET table
 
 var express = require('express');
 var router = express.Router();
