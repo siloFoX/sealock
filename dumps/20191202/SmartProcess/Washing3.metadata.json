@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Washing3"}],"uuid":"66dc632bf9ec48d38c3575830f8eb68b"}

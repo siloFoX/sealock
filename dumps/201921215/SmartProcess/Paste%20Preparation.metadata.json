@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Paste Preparation"}],"uuid":"d97345e4a4ff4593b8e02321e198e859"}

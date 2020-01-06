@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SCPS.mobilitys"}],"uuid":"bea213d68e294ef2bf939f1fb038037f"}

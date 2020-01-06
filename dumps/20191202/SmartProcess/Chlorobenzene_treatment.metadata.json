@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Chlorobenzene_treatment"}],"uuid":"f4aabeaf7491424495175cdf21b05e11"}

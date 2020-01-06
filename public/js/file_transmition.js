@@ -24,7 +24,14 @@ function select_picture(row, column, row2, column2, headers, hot) {
         sidebar_picture(hot.getData()[row], headers[column])
     }
     else{
-        
+        file_select.form.reset()
+        file_name.value = "File Name"
+        info_id.innerHTML = ""
+        info_date.innerHTML = ""
+        info_name.innerHTML = ""
+        info_board_number.innerHTML = ""
+        info_file_info.innerHTML = ""
+        real_id.innerHTML = ""
         adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
 
         if(update_container_changed) {

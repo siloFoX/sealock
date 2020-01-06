@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.PR_coating"}],"uuid":"73b8ceea813a4db0a1d5b56459974af8"}
