@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.PR_hand_blowing"}],"uuid":"5844b73f2c394bb18613bf85bb5f1b14"}

@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Measure"}],"uuid":"a45cfecdcb724c37b03ec005c88b4f99"}

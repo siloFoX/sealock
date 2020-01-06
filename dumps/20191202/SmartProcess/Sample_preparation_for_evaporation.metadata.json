@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Sample_preparation_for_evaporation"}],"uuid":"a7dcb1eb09af4c2aa4954eaba6817234"}

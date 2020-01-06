@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Heat_treatment"}],"uuid":"2941d65acc864409855bf22b8c65ac4a"}

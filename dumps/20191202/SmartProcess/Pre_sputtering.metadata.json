@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"SmartProcess.Pre_sputtering"}],"uuid":"ca43182d6e324bdf9a255d51f338cff5"}
