@@ -1,4 +1,5 @@
 // router/update.js
+// file transmition(in update mode)
 
 var express = require('express');
 var router = express.Router();
@@ -66,7 +67,7 @@ router.post('/', function (req, res) {
             queryTable[column] = file_path
 
             // DB
-            MongoClient.connect('mongodb://223.194.70.112:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
                 if(err) {
                     console.error("Mongodb connection Error ", err)
                     res.json({"result" : "fail"})

@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 //const mongo = require('mongodb') 
 //const MongoClient = require('mongodb').MongoClient;
 // CONNECT TO MONGODB SERVER 223.194.70.112
-mongoose.connect("mongodb://"+"223.194.70.112:27017/SmartProcess", {
+mongoose.connect("mongodb://"+"localhost:27017/SmartProcess", {
    socketTimeoutMS: 0,
    keepAlive: true,
    reconnectTries: 30,
@@ -32,7 +32,7 @@ app.use(bodyParser.json()); // default format of body
 // var Flight = require('./models/flight');
 
 // web engine
-app.engine('html', require('ejs').__express);
+app.engine('html', require('ejs').renderFile);
 
 // web settings
 app.set('views', __dirname + '/views'); // default directiory for rendering

@@ -15,7 +15,7 @@ function modeDropChange() {
         }
         
         hot.destroy()
-        render_table(null)
+        renderDatafromDB()
         render_memo()
         save.innerHTML = "Upload sheet to DB"
         adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
@@ -142,6 +142,8 @@ function renderDatafromDB () {
         }
     })
 }
+
+renderDatafromDB()
 
 function sleep (delay) {
     var start = new Date().getTime();
