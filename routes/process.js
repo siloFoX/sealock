@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
         var collection = dict[process]
         
         // DB query
-        MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+        MongoClient.connect('mongodb://223.194.70.112:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
                 res.json({"result" : "fail"})
