@@ -1,6 +1,6 @@
 // URL for client
-var URL = "http://223.194.70.112:3000"
-// var URL = "http://223.194.70.112:3000"
+var URL = "http://localhost:3000"
+// var URL = "http://localhost:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -18,14 +18,36 @@ var // DOM controller get by ID
 
 var update_container_changed = false
 
-render_table()
-
 function render_table(Data = null) {
-    var process = dropdown.options[dropdown.selectedIndex].value 
+    var process = dropdown.options[dropdown.selectedIndex].value
     var headers = processess[process]
     var inner_data = Data
 
-    if(inner_data) {
+    if(mode.value == "Update-mode") { // update mode setting
+
+        if(!inner_data) {
+
+            hot = new Handsontable(container, {
+                data: Handsontable.helper.createSpreadsheetData(1, headers.length),
+                colHeaders: headers,
+                rowHeaders: true,
+                height: 300,
+                width: '100%',
+                minSpareRows: 1,
+                fixedRowsTop : true,
+                manualColumnResize: true,
+                manualRowResize: false,
+                headerTooltips: {
+                    rows: false,
+                    columns: true,
+                    onlyTrimmed: true
+                },
+                licenseKey: "non-commercial-and-evaluation"
+            });
+    
+            hot.clear()
+            return;
+        }
 
         headers = Object.keys(inner_data[0])
         var headers_except_id = headers.slice(1)
@@ -60,18 +82,49 @@ function render_table(Data = null) {
             }
         });
     }
-    else {
-        const height_size = 10
+    else if(inner_data) { // in upload mode 
+        
+        const column_size = 10
+        var last_data = inner_data[inner_data.length - 1]
 
         var columns = []
         var row = []
 
+        console.log(last_data)
+
         for (var i = 0; i < headers.length; i++) {
-            row.push("")
+        
+            var header = headers[i]
+
+            if(header == "실험날짜" || header == "해당실험기판번호" || header == "실험자명" || header == "사진") 
+                row.push("")
+            else
+                row.push(last_data[header])
         }
-        for (var i = 1; i < height_size; i++) {
+
+        for (var i = 0; i < column_size; i++) {
             columns.push(row)
         }
+
+        hot = new Handsontable(container, {
+            data: columns,
+            colHeaders: headers,
+            rowHeaders: true,
+            height: 300,
+            width: '100%',
+            minSpareRows: 1,
+            fixedRowsTop : true,
+            manualColumnResize: true,
+            manualRowResize: false,
+            headerTooltips: {
+                rows: false,
+                columns: true,
+                onlyTrimmed: true
+            },
+            licenseKey: "non-commercial-and-evaluation"
+        });
+    }
+    else { // upload mode that no data
 
         hot = new Handsontable(container, {
             data: Handsontable.helper.createSpreadsheetData(10, headers.length),
@@ -203,16 +256,11 @@ function dropChange() {
         return;
     }
 
-    if(mode.options[mode.selectedIndex].value === "Upload-mode"){
+    if(mode.options[mode.selectedIndex].value === "Upload-mode")
         render_memo()
 
-        hot.destroy()
-        render_table()
-    }
-    else{
-        hot.destroy()
-        renderDatafromDB()
-    }
+    hot.destroy()
+    renderDatafromDB()
 
     if (mode.options[mode.selectedIndex].value === "Upload-mode") {
         adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
@@ -223,49 +271,3 @@ function dropChange() {
         adviceConsole.style = ""
     }
 }
-
-// function parentDropChange() {
-//     if(parentDropdown.options[parentDropdown.selectedIndex].value == "SmartProcess"){
-        
-//     alert(parentDropdown.options[parentDropdown.selectedIndex].value)
-
-//         dropdown.innerHTML = `
-//             <option value = '샘플준비'>샘플준비</option>
-//             <option value = '세정1'>세정1</option>
-//             <option value = '세정2'>세정2</option>
-//             <option value = '세정3'>세정3</option>
-//             <option value = '세정블로윙'>세정블로윙</option>
-//             <option value = '프리스퍼터링'>프리스퍼터링</option>
-//             <option value = '스퍼터링'>스퍼터링</option>
-//             <option value = '열처리'>열처리</option>
-//             <option value = 'PR핸드블로윙'>PR핸드블로윙</option>
-//             <option value = 'HMDS코팅'>HMDS코팅</option>
-//             <option value = 'PR코팅'>PR코팅</option>
-//             <option value = 'PR베이킹'>PR베이킹</option>
-//             <option value = '클로로벤젠처리'>클로로벤젠처리</option>
-//             <option value = '클로로벤젠세정후블로윙'>클로로벤젠세정후블로윙</option>
-//             <option value = '노광'>노광</option>
-//             <option value = '현상'>현상</option>
-//             <option value = '현상액세정후블로윙'>현상액세정후블로윙</option>
-//             <option value = '이베포레이션샘플거치'>이베포레이션샘플거치</option>
-//             <option value = '스트립-담그기'>스트립-담그기</option>
-//             <option value = '스트립-뿌리기'>스트립-뿌리기</option>
-//             <option value = '산화막제거'>산화막제거</option>
-//             <option value = '실버페이스트도포'>실버페이스트도포</option>
-//             <option value = '실버페이스트건조'>실버페이스트건조</option>
-//             <option value = '측정'>측정</option>
-//             <optgroup label = '=========================='></optgroup>
-//             <option value = 'Add'>Add</option>`
-//     }
-//     else{
-//         alert("Add mode is not supported in this version.")
-//         dropdown.innerHTML = `
-//             <option value = 'dummy'>dummy</option>
-//             <optgroup label = '=========================='></optgroup>
-//             <option value = 'Add'>Add</option>`
-//     }
-// }
-
-// dummy_btn.addEventListener('click', function () {
-//     alert("There is no PRO version now.")
-// });
