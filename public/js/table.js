@@ -1,6 +1,5 @@
 // URL for client
 var URL = "http://localhost:3000"
-// var URL = "http://localhost:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -17,6 +16,7 @@ var // DOM controller get by ID
     hot;
 
 var update_container_changed = false
+var upload_container_changed = false
 
 // why it didn't work??
 
@@ -97,7 +97,7 @@ function render_table(Data = null) {
             if(header == "실험날짜" || header == "해당실험기판번호" || header == "실험자명" || header == "사진")
                 row[header] = null
             else    
-                row[header] = clone(table_data[table_data.length - 1][header])
+                row[header] = table_data[table_data.length - 1][header]
         }
 
         for (var idx = 0; idx < column_size; idx++) {
@@ -106,6 +106,7 @@ function render_table(Data = null) {
         }
             
         table_data = rows
+        upload_container_changed = false
     }
 
     for (var colHeaderIdx in headers_except_id) 
@@ -128,6 +129,7 @@ function render_table(Data = null) {
         },
         licenseKey: "non-commercial-and-evaluation",
         afterSelection: (row, column, row2, column2, preventScrolling, selectionLayerLevel) => {
+            if(mode.value === "Update-mode")
                 select_picture(row, column, row2, column2, headers, hot)
         }
     });
@@ -135,12 +137,7 @@ function render_table(Data = null) {
 
 Handsontable.dom.addEvent(save, 'click', function() {
 
-    if(dropdown.options[dropdown.selectedIndex].value === "Add" || dropdown.options[dropdown.selectedIndex].value === "dummy"){
-        alert("This mode is not supported in this version.")
-        return;
-    }
-
-    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
+    if (mode.value === "Upload-mode") {
         var process = dropdown.options[dropdown.selectedIndex].value
         var headers = processess[process] 
         var url_tmp = URL + "/table"
@@ -181,7 +178,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
         // alert("Save query sended")
         hot.clear()
     }
-    else if(mode.options[mode.selectedIndex].value === "Update-mode") {
+    else if(mode.value === "Update-mode") {
         var process = dropdown.options[dropdown.selectedIndex].value
         var headers = hot.getColHeader()
         var url_tmp = URL + "/update"
@@ -224,11 +221,12 @@ Handsontable.dom.addEvent(save, 'click', function() {
 });
 
 container.onchange = function () {
-    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+    if (mode.value === "Upload-mode") {
+        adviceConsole.innerText = 'Click " Upload " to save data to server';
         adviceConsole.style = "color : red;"
+        upload_container_changed = true
     }
-    else if (mode.options[mode.selectedIndex].value === "Update-mode") {
+    else if (mode.value === "Update-mode") {
         adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
         adviceConsole.style = "color : red;"
         update_container_changed = true
@@ -236,22 +234,18 @@ container.onchange = function () {
 }
 
 function dropChange() {
-    if(dropdown.options[dropdown.selectedIndex].value === "Add" || dropdown.options[dropdown.selectedIndex].value === "dummy"){
-        alert("This mode is not supported in this version.")
-        return;
-    }
 
-    if(mode.options[mode.selectedIndex].value === "Upload-mode")
+    if(mode.value === "Upload-mode")
         render_memo()
 
     hot.destroy()
     renderDatafromDB()
 
-    if (mode.options[mode.selectedIndex].value === "Upload-mode") {
-        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+    if (mode.value === "Upload-mode") {
+        adviceConsole.innerText = 'Click " Upload " to save data to server';
         adviceConsole.style = ""
     }
-    else if (mode.options[mode.selectedIndex].value === "Update-mode") {
+    else if (mode.value === "Update-mode") {
         adviceConsole.innerText = 'Click " Update " or Click below of " 사진 " cells';
         adviceConsole.style = ""
     }

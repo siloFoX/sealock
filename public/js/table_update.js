@@ -6,19 +6,15 @@ var
 function modeDropChange() {
     var file_uploader = $$('file-uploader')
 
-    if (mode.options[mode.selectedIndex].value == "Upload-mode"){
+    if (mode.value == "Upload-mode"){
         file_uploader.className = "hide"
         memo.className = ""
 
-        if(dropdown.options[dropdown.selectedIndex].value === "dummy") {
-            return;
-        }
-        
         hot.destroy()
         renderDatafromDB()
         render_memo()
-        save.innerHTML = "Upload sheet to DB"
-        adviceConsole.innerText = 'Click " Upload sheet to DB " to save data to server';
+        save.innerHTML = "Upload"
+        adviceConsole.innerText = 'Click " Upload " to save data to server';
         adviceConsole.style = ""
 
         // alert('Upload mode is activated')
