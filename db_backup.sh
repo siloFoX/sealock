@@ -5,7 +5,7 @@
 
 mongodump
 date_tmp=$(date)
-echo $date_tmp >> /home/apl/smartp/sealock_ui/dump_time.log
+echo $date_tmp >> /home/apl/smartp/seelock_ui/dump_time.log
 
 mv dump/ /home/apl/smartp/sealock_ui/dumps/
 mv dump $date_tmp
