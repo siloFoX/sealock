@@ -41,6 +41,8 @@ var upload_container_changed = false
 
 function clone(obj) {
 
+    // todo : if obj is undefined or null
+
     return JSON.parse(JSON.stringify(obj))
 }
 
