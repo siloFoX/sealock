@@ -75,7 +75,7 @@ router.post('/', function (req, res) {
                 }
 
                 // path is inserted in column  
-                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
+                client.db("Locke").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
                     if(err) {
                         console.error("Input file path Error ", err)
                         res.json({"result" : "fail"})

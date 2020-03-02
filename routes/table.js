@@ -61,7 +61,7 @@ router.post('/', function (req, res) {
                 console.log(queryTable) 
 
                 // send one query
-                client.db("SmartProcess").collection(collection).insertOne(queryTable, function (err) {
+                client.db("Locke").collection(collection).insertOne(queryTable, function (err) {
                     if(err) {
                         console.error("Query Error ", err)
                         success = false

@@ -63,7 +63,7 @@ router.post('/', function (req, res) {
                 }
 
                 // data which wants to change
-                client.db("SmartProcess").collection(collection).find(object_query).toArray(function(err, result) {
+                client.db("Locke").collection(collection).find(object_query).toArray(function(err, result) {
                     if(err) {
                         console.error("Query Error ", err)
                         success = false
@@ -80,7 +80,7 @@ router.post('/', function (req, res) {
                 });
                 
                 // change data
-                client.db("SmartProcess").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
+                client.db("Locke").collection(collection).updateOne(object_query, { $set : queryTable }, function (err) {
                     if(err) {
                         console.error("Query Error ", err)
                         success = false

@@ -32,7 +32,7 @@ router.post('/', function(req, res) {
             }
 
             // send all data from process
-            client.db("SmartProcess").collection(collection).find({}).toArray(function(err, result) {
+            client.db("Locke").collection(collection).find({}).toArray(function(err, result) {
                 if(err) {
                     console.error("Collection find Error : ", err)
                     res.json({"result" : "fail"})
