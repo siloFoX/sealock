@@ -46,6 +46,8 @@ app.use('/process', require('./routes/process'));
 app.use('/file', require('./routes/file'));
 app.use('/memo', require('./routes/memo'));
 app.use('/update', require('./routes/update'));
+app.use('/search', require('./routes/search'));
+app.use('/print', require('./routes/print'));
 
 app.listen(3000); // port number
 
