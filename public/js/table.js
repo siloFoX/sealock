@@ -1,4 +1,4 @@
-// URL for client
+// URL for client 223.194.70.112
 var URL = "http://223.194.70.112:3000"
 
 var // DOM controller get by ID
@@ -51,7 +51,7 @@ function render_table(Data = null) {
     var headers = processess[process]
     var column_size = 10
 
-    if(!Data) {
+    if(!Data || Data.hasOwnProperty("result")) {
 
         if(mode.value == "Update-mode")
             column_size = 1
