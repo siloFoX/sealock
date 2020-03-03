@@ -57,6 +57,8 @@ router.post('/', function (req, res) {
         
                     if(err) {
                         console.error("Query Error ", err)
+                        res.json({"result" : "fail"})
+                        return;
                     }
                     else if(!result[0]) {
                     }
@@ -82,6 +84,9 @@ router.post('/', function (req, res) {
 
                         console.log(resultList.length + " is found")
 
+                        if(!resultList.length)
+                            res.json({"result" : "fail"})
+
                         let file_str = "["
 
                         for (let idx = 0; idx < resultList.length; idx++) {
@@ -93,6 +98,7 @@ router.post('/', function (req, res) {
                                 fs.writeFile("./public/json/print.json", file_str.slice(0, -1) + "\n]", function(err) {
                                     if(err) {
                                         console.error("File Error ", err)
+                                        res.json({"result" : "fail"})
                                         return;
                                     }
                                 })
