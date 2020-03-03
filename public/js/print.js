@@ -1,4 +1,4 @@
-var URL = "http://localhost:3000"
+var URL = "http://http://223.194.70.112/:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -24,7 +24,7 @@ $.getJSON(print_info_path, (info) => {
     do {
 
         let each_data = info[idx]
-        
+
         if(each_data["사진"]) {
             record_picture_path[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["사진"]
         }
