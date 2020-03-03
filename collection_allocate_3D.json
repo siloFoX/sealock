@@ -26,5 +26,11 @@
     "산화막제거" :"Oxide_removal",
     "실버페이스트도포" :"Applying_silver_paste",
     "실버페이스트건조" :"Dry_silver_paste",
-    "측정" : "Measure"
+    "측정" : "Measure",
+    "혼합재 준비 및 반죽" : "Paste Preparation",
+    "원재료 데이터베이스" : "Raw Material Information",
+    "프린팅장비 세팅 및 출력" : "3D Printing Setup & Results",
+    "동결융해로 세팅" : "Treatment Setup",
+    "양생단계" : "Treatment Environment & Results",
+    "측정장비 세팅" : "Testing & Results & Evaluation"
 }

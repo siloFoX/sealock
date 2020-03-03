@@ -113,7 +113,7 @@ function postSearch() {
     var url_tmp = URL + "/search"
 
     var req = {
-        "Name" : nameInput.value,
+        "name" : nameInput.value,
         "start-date" : startInput.value,
         "end-date" : endInput.value
     }

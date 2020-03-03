@@ -31,7 +31,7 @@ router.post('/', function (req, res) {
 
         // DB part
         // connect DB localhost:27017
-        MongoClient.connect('mongodb://localhost:27017/SmartPorcess', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+        MongoClient.connect('mongodb://localhost:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
                 res.json({"result" : "fail"})

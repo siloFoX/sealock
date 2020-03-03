@@ -5,6 +5,7 @@ var router = express.Router();
 
 // GET : print
 router.get('/', function (req, res) {
+    console.log("Print mode on")
     res.render('print');
 })
 
