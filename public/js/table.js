@@ -96,7 +96,7 @@ function render_table(Data = null) {
 
             var header = headers[idx]
 
-            if(header == "실험날짜" || header == "해당실험기판번호" || header == "실험자명" || header == "사진")
+            if(header == "실험날짜" || header == "해당실험기판번호" || header == "실험자명" || header == "사진" || header == "비고")
                 row[header] = null
             else    
                 row[header] = table_data[table_data.length - 1][header]
