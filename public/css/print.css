@@ -24,6 +24,10 @@
     margin-bottom: 0px !important;
 }
 
+.container {
+    width : 98% !important;
+}
+
 .row {
     margin-top : 100px;
 }
