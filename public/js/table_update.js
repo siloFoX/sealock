@@ -1,7 +1,9 @@
 var 
     memo = $$('memo'),
     memo_text = $$('memo-text'),
-    memo_button = $$('memo-button')
+    memo_button = $$('memo-button'),
+
+    go_to_search_btn = $$('go-to-search')
 
 function modeDropChange() {
     var file_uploader = $$('file-uploader')
@@ -146,3 +148,7 @@ function sleep (delay) {
     adviceConsole.innerText = 'Loading ...';
     while (new Date().getTime() < start + delay);
 }
+
+go_to_search_btn.addEventListener('click', () => {
+    location.href = URL + "/search"
+})

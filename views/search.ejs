@@ -8,6 +8,7 @@
     <link href = "css/handsontable.full.min.css" rel = "stylesheet" media = "screen">
     <script src = "https://code.jquery.com/jquery-latest.min.js"></script>
     <link href = "css/index.css" rel = "stylesheet" type="text/css">
+    <link href = "css/search.css" rel = "stylesheet" type = "text/css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -30,28 +31,59 @@
                             <option value = "SmartProcess">SmartProcess</option>
                             <!-- <optgroup label = "=========================="></optgroup> -->
                             <!-- <option value = "Add">Add</option> -->
-                        </select>  
+                        </select>
+                        
+                        
+                        <button id = "back-btn" class = "btn">Back</button>
+                        
                 </div>
+
+                
             </div>
 
-            <!--
 
-	    <div class="navbar-form navbar-left" >
-                <div>
-                    <button name = "default" id = "default" class= "btn">Get Pro version</button>
-                </div>
-	    </div> 
+            
 
-	    -->
-
-            <div class="navbar-form navbar-right input-form" >
-                <input type = "text" class = "form-control" placeholder = "not yet supported">
-            </div>
-
-            <div class="navbar-form navbar-right search-form" >
-                <span>Search&nbsp; | </span>
-            </div>
+            
         </div>
     </nav>
 
+    <div class = "container">
+        <div class = "row justify-content-md-center">
+            <div class = "col">
+                <div class = "panel panel-default">
+                    <div class = "panel-body">
+                        <div class="navbar-form search-form" >
+                            <span>Name</span>
+                            <span id = "name-bar">|</span>
+                            <input id = "name-input" type = "text" class = "form-control" placeholder = "John Doe">
+                        </div>
+
+                        <div class="navbar-form search-form" >
+                            <span>Start Date</span>
+                            <span id = "start-bar">|</span>
+                            <input id = "start-input" type = "text" class = "form-control" placeholder = "20201004">
+                        </div>
+
+                        <div class="navbar-form search-form" >
+                            <span>End Date</span>
+                            <span id = "end-bar">|</span>
+                            <input id = "end-input" type = "text" class = "form-control" placeholder = "20201006">
+                        </div>
+
+                        <div class = "right-btn-wrapper">
+                            <button id = "search-btn" class = "btn">Search</button>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src = "js/search.js"></script>
+
 </body>
+
+</html>

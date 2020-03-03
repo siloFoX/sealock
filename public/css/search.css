@@ -1,0 +1,42 @@
+.row {
+    margin-top : 100px;
+}
+
+
+.col {
+    width : 70%;
+    padding-left : 20%;
+}
+
+.panel-body {
+    padding-left : 15% !important;
+}
+
+#name-bar {
+    margin-left : 40px;
+}
+
+#start-bar {
+    margin-left : 7px;
+}
+
+#end-bar {
+    margin-left : 13px;
+}
+
+.form-control {
+    margin-left : 20px;
+}
+
+.right-btn-wrapper {
+    margin-top : 15px;
+    float : right;
+}
+
+.btn {
+    margin-right : 20px;
+}
+
+#back-btn {
+    margin-left : 20px;
+}

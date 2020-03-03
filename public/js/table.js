@@ -119,7 +119,7 @@ function render_table(Data = null) {
         colHeaders: headers,
         columns: columns,
         rowHeaders: true,
-        height: 520,
+        height: 400,
         width: '100%',
         minSpareRows: 1,
         manualColumnResize: true,
