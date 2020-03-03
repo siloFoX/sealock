@@ -46,10 +46,14 @@ router.post('/', function (req, res) {
 
             var query = {$and : [{"실험자명" : rawReq["name"]}, {"실험날짜" : {$in : dateList}}]}
             var resultList = []
+
+            let val_array = Object.values(dict)
         
-            for (let key in dict) {
+            for (let val_idx = 0; val_idx < val_array.length; val_idx++) {
+
+                console.log(val_array[val_idx] + " query finished")
                     
-                client.db("Locke").collection(dict[key]).find(query).toArray(function(err, result) {
+                client.db("Locke").collection(val_array[val_idx]).find(query).toArray(function(err, result) {
         
                     if(err) {
                         console.error("Query Error ", err)
@@ -62,7 +66,7 @@ router.post('/', function (req, res) {
         
                             let result_tmp = result[idx]
                             result[idx] = {}
-                            result[idx]["공정"] = dict[key]
+                            result[idx]["공정"] = val_array[val_idx]
                             
                             for(let key_tmp in result_tmp) 
                                 result[idx][key_tmp] = result_tmp[key_tmp]
@@ -74,7 +78,7 @@ router.post('/', function (req, res) {
                         }
                     }
 
-                    if(key == Object.keys(dict)[Object.keys(dict).length - 1]) {
+                    if(val_idx == val_array.length - 1) {
 
                         console.log(resultList.length + " is found")
 
@@ -86,7 +90,7 @@ router.post('/', function (req, res) {
 
                             if(idx == resultList.length - 1) {
 
-                                fs.writeFile("./public/json/print.json", file_str.slice(0, -1) + "\n]", function(err, file) {
+                                fs.writeFile("./public/json/print.json", file_str.slice(0, -1) + "\n]", function(err) {
                                     if(err) {
                                         console.error("File Error ", err)
                                         return;
