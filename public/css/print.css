@@ -1,0 +1,60 @@
+.body{
+    background-color: #f9fdff;
+}
+
+.navbar{
+    background-color: #ffffff !important;
+    height: 70;
+    border-bottom: 1px solid rgb(221, 221, 221) !important;
+}
+
+.navbar-brand{
+    float: left;
+    height: 60px !important;
+    padding: 15px 15px;
+    font-size: 40px !important;
+    line-height: 35px !important;
+    color: #3b93ff !important;
+    border-right: rgb(221, 221, 221) !important;
+    margin-top : 10px;
+}
+
+.navbar-form {
+    padding: 15px 5px !important;
+    margin-bottom: 0px !important;
+}
+
+.row {
+    margin-top : 100px;
+}
+
+.col {
+    width : 100%;
+}
+
+.spreadsheet{
+    margin: 15px 20px 0px 15px;
+}
+
+.footer {
+    text-align: right;
+    color: rgb(211, 211, 211);
+    margin-top : 150px;
+    margin-right : 50px;
+}
+
+#footer-line{
+    margin-bottom: 0px;
+}
+
+h4 {
+    font-size : 20px !important;
+}
+
+#name {
+    margin-left : 10px;
+}
+
+#theme {
+    padding-left : 200px;
+}
