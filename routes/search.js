@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
 
     var rawReq = req.body
 
-    // console.log(rawReq["name"])
+    console.log("Print query : " + JSON.stringify(rawReq))
     // console.log(rawReq["start-date"])
     // console.log(rawReq["end-date"])
 
@@ -30,15 +30,79 @@ router.post('/', function (req, res) {
             return;
         }
 
-        // var dict = JSON.parse(file)
-        // var headers = []
-        
-        // for (key in dict) {
-        //     headers.push(dict[key])
-        // }
-    })
+        var dict = JSON.parse(file)
 
-    res.json({"result" : "ok"})
+        mongoClient.connect('mongodb://localhost:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            if(err) {
+                console.error("Mongodb connection Error ", err)
+                res.json({"result" : "fail"})
+                return;
+            }
+
+            var dateList = []
+
+            for (date = parseInt(rawReq["start-date"]); date < parseInt(rawReq["end-date"]) + 1; date++) 
+                dateList.push(String(date))
+
+            var query = {$and : [{"실험자명" : rawReq["name"]}, {"실험날짜" : {$in : dateList}}]}
+            var resultList = []
+        
+            for (let key in dict) {
+                    
+                client.db("Locke").collection(dict[key]).find(query).toArray(function(err, result) {
+        
+                    if(err) {
+                        console.error("Query Error ", err)
+                    }
+                    else if(!result[0]) {
+                    }
+                    else {
+                        
+                        for (let idx = 0; idx < result.length; idx++) {
+        
+                            let result_tmp = result[idx]
+                            result[idx] = {}
+                            result[idx]["공정"] = dict[key]
+                            
+                            for(let key_tmp in result_tmp) 
+                                result[idx][key_tmp] = result_tmp[key_tmp]
+                            
+        
+                            delete result[idx]._id
+        
+                            resultList.push(result[idx])
+                        }
+                    }
+
+                    if(key == Object.keys(dict)[Object.keys(dict).length - 1]) {
+
+                        console.log(resultList.length + " is found")
+
+                        let file_str = "["
+
+                        for (let idx = 0; idx < resultList.length; idx++) {
+
+                            file_str += "\n\t" + JSON.stringify(resultList[idx]) + ","
+
+                            if(idx == resultList.length - 1) {
+
+                                fs.writeFile("./public/json/print.json", file_str.slice(0, -1) + "\n]", function(err, file) {
+                                    if(err) {
+                                        console.error("File Error ", err)
+                                        return;
+                                    }
+                                })
+
+                                console.log("Make print data success")
+                                res.json({"result" : "ok"})
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    })
 })
+
 
 module.exports = router;
