@@ -7,13 +7,17 @@ var // DOM controller get by ID
 
     researcher = $$("researcher"),
     memo_controller = $$("memo-controller"),
+    body = $$("body"),
     print_info_path = "./json/print.json",
     record_picture_path = {},
-    record_each_memos = {}
+    record_each_memos = {},
+    global_info
 
 $.getJSON(print_info_path, (info) => {
-    
+
     researcher.innerHTML = info[0]["실험자명"] + `<small class="text-muted" style = "margin-left : 5px;">연구원</small>`
+
+    global_info = info
     
     let table_data = []
     let table_num = 0
@@ -84,6 +88,7 @@ $.getJSON(print_info_path, (info) => {
     } while(idx++ < info.length - 1)
 
     renderMemos(record_each_memos)
+    getPicture()
 })
 
 function renderMemos(memos) {
@@ -98,6 +103,18 @@ function renderMemos(memos) {
     memo_controller.innerHTML = all_comment
 }
 
-function getPicture (paths) {
+function getPicture () {
 
+    html2canvas(document.body).then(function(canvas) {
+
+        let imgData = canvas.toDataURL("image/png");
+        let link = document.createElement("a")
+
+        link.download = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ")"
+        link.href = imgData
+        document.body.appendChild(link)
+        link.click()
+
+        window.close()
+    })
 }

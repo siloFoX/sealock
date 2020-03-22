@@ -132,8 +132,14 @@ function postSearch() {
 
         var response = res["data"]
 
-        if(response["result"] === "ok")
-            location.href = URL + "/print"
+        if(response["result"] === "ok") {
+
+            console.log("a")
+            new_window = window.open(URL + "/print", "연구노트", resizable = true)
+            new_window.resizeTo(width = 1200, height = screen.height)
+
+            alert("Print the PDF file")
+        }
         else {
             alert("There's no data about that Name & Dates")
         }
