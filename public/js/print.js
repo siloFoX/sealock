@@ -1,4 +1,4 @@
-var URL = "http://localhost:3000"
+// var URL = "http://localhost:3000" 같은 이름 객체
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -108,13 +108,16 @@ function getPicture () {
     html2canvas(document.body).then(function(canvas) {
 
         let imgData = canvas.toDataURL("image/png");
-        let link = document.createElement("a")
 
-        link.download = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ")"
-        link.href = imgData
-        document.body.appendChild(link)
-        link.click()
+        let file_name = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ").pdf"
+        let doc = new jsPDF({orientation : 'landscape'})
 
-        window.close()
+        let imgProps = doc.getImageProperties(imgData)
+
+        var width = doc.internal.pageSize.getWidth();
+        var height = (imgProps.height * width) / imgProps.width;
+        doc.addImage(imgData, 'PNG', 0, 0, width, height);
+
+        doc.save(file_name)
     })
 }
