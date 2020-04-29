@@ -1,4 +1,4 @@
-// var URL = "http://localhost:3000" 같은 이름 객체
+// var URL = "http://localhost:3000" // 같은 이름 객체
 
 var // DOM controller get by ID
     $$ = function(id) {

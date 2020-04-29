@@ -67,7 +67,7 @@ router.post('/', function (req, res) {
             queryTable[column] = file_path
 
             // DB
-            MongoClient.connect('mongodb://localhost:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            MongoClient.connect('mongodb://localhost:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
                 if(err) {
                     console.error("Mongodb connection Error ", err)
                     res.json({"result" : "fail"})
