@@ -42,7 +42,7 @@
     margin: 15px 20px 0px 15px;
 }
 
-#memo-form {
+.memo-form {
     margin: 30px 20px 0px 15px;
     padding-top : 10px;
     padding-bottom : 10px;
@@ -74,4 +74,28 @@ li {
 
 #theme {
     padding-left : 200px;
+}
+
+.img {
+    width : 100%;
+    height : 100%
+}
+
+.even-picture {
+    width : 40%;
+    height : 40%;
+    margin : 5%;
+    float : left;
+}
+
+.odd-picture {
+    width : 40%;
+    height : 40%;
+    margin : 5%;
+    float : left;
+}
+
+.img-name {
+    margin : 5px;
+    text-align : center;
 }

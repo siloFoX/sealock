@@ -225,7 +225,7 @@ Handsontable.dom.addEvent(save, 'click', function() {
 
 container.onchange = function () {
     if (mode.value === "Upload-mode") {
-        adviceConsole.innerText = 'Click " Upload " to save data to server';
+        adviceConsole.innerText = 'Click " Saved " to save data to server';
         adviceConsole.style = "color : red;"
         upload_container_changed = true
     }
@@ -245,7 +245,7 @@ function dropChange() {
     renderDatafromDB()
 
     if (mode.value === "Upload-mode") {
-        adviceConsole.innerText = 'Click " Upload " to save data to server';
+        adviceConsole.innerText = 'Click " Save " to save data to server';
         adviceConsole.style = ""
     }
     else if (mode.value === "Update-mode") {

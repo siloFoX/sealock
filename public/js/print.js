@@ -1,4 +1,4 @@
-// var URL = "http://localhost:3000" // 같은 이름 객체
+var url = "http://localhost:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -8,10 +8,13 @@ var // DOM controller get by ID
     researcher = $$("researcher"),
     memo_controller = $$("memo-controller"),
     body = $$("body"),
+    image_form = $$("image-form"),
+    memo_form = $$("memo-form"),
     print_info_path = "./json/print.json",
-    record_picture_path = {},
+    record_picture_name = {},
     record_each_memos = {},
-    global_info
+    global_info,
+    count_memo = 0
 
 $.getJSON(print_info_path, (info) => {
 
@@ -30,14 +33,16 @@ $.getJSON(print_info_path, (info) => {
         let each_data = info[idx]
         
         if(each_data["사진"]) {
-            record_picture_path[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["사진"]
+            record_picture_name[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["사진"] + "_" + each_data["_id"]
         }
         
         if(each_data["비고"]){
             record_each_memos[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["비고"]
+            count_memo++
         }
 
         delete each_data["사진"]
+        delete each_data["_id"]
         delete each_data["비고"]
         
         if((!(info.length - 1) || previous_process) && (each_data["공정"] != previous_process || idx == info.length - 1)) {
@@ -88,10 +93,14 @@ $.getJSON(print_info_path, (info) => {
     } while(idx++ < info.length - 1)
 
     renderMemos(record_each_memos)
-    getPicture()
+    renderPictures(record_picture_name)
+    // getPicture()
 })
 
 function renderMemos(memos) {
+
+    if(count_memo) 
+        memo_form.className = "memo-form"
 
     let all_comment = ""
     for (let key in memos) {
@@ -101,6 +110,40 @@ function renderMemos(memos) {
     }
     
     memo_controller.innerHTML = all_comment
+}
+
+function renderPictures(picture_names) {
+
+    let count = 0
+
+    for (let key in picture_names) {
+        
+        let form_adder = document.createElement("div")
+        
+        // ObjectId 로 사진 검색
+        let objectid = picture_names[key].split('_')[1]
+        let url_tmp = url + "/img?name=" + objectid
+        let img = document.createElement("img")
+        
+        let img_name = document.createElement("p")
+        img_name.innerHTML = key
+        img_name.className = "img-name"
+
+        // 이미지 기본 css
+        img.className = "img"
+
+        // 링크로 처리
+        img.src = url_tmp
+
+        if(count++ % 2 === 0) 
+            form_adder.className = "even-picture"
+        else 
+            form_adder.className = "odd-picture"
+        
+        image_form.appendChild(form_adder)
+        form_adder.appendChild(img)
+        form_adder.appendChild(img_name)
+    }
 }
 
 function getPicture () {

@@ -48,6 +48,7 @@ app.use('/memo', require('./routes/memo'));
 app.use('/update', require('./routes/update'));
 app.use('/search', require('./routes/search'));
 app.use('/print', require('./routes/print'));
+app.use('/img', require('./routes/img'));
 
 app.listen(3000); // port number
 

@@ -74,7 +74,7 @@ router.post('/', function (req, res) {
                                 result[idx][key_tmp] = result_tmp[key_tmp]
                             
         
-                            delete result[idx]._id
+                            // delete result[idx]._id
         
                             resultList.push(result[idx])
                         }
