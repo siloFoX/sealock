@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
 
         var dict = JSON.parse(file)
 
-        mongoClient.connect('mongodb://223.194.70.112:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+        mongoClient.connect('mongodb://223.194.70.112:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
                 res.json({"result" : "fail"})
@@ -74,7 +74,7 @@ router.post('/', function (req, res) {
                                 result[idx][key_tmp] = result_tmp[key_tmp]
                             
         
-                            delete result[idx]._id
+                            // delete result[idx]._id
         
                             resultList.push(result[idx])
                         }

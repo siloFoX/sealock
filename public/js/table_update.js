@@ -16,7 +16,7 @@ function modeDropChange() {
         renderDatafromDB()
         render_memo()
         save.innerHTML = "Upload"
-        adviceConsole.innerText = 'Click " Upload " to save data to server';
+        adviceConsole.innerText = 'Click " Save " to save data to server';
         adviceConsole.style = ""
 
         // alert('Upload mode is activated')

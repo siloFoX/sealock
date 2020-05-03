@@ -31,7 +31,7 @@ router.post('/', function (req, res) {
 
         // DB part
         // connect DB 223.194.70.112:27017
-        MongoClient.connect('mongodb://223.194.70.112:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+        MongoClient.connect('mongodb://223.194.70.112:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
                 res.json({"result" : "fail"})

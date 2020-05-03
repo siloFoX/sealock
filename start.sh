@@ -1,2 +1,2 @@
 sudo service mongod start
-sudo forever server.js > logs.txt &
+sudo forever --minUptime 5 --spinSleepTime 5 server.js > logs.txt &

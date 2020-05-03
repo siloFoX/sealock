@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 //const mongo = require('mongodb') 
 //const MongoClient = require('mongodb').MongoClient;
 // CONNECT TO MONGODB SERVER 223.194.70.112
-mongoose.connect("mongodb://"+"223.194.70.112:27017/Locke", {
+mongoose.connect("mongodb://"+"223.194.70.112:20017/Locke", {
    socketTimeoutMS: 0,
    keepAlive: true,
    reconnectTries: 30,
@@ -48,6 +48,7 @@ app.use('/memo', require('./routes/memo'));
 app.use('/update', require('./routes/update'));
 app.use('/search', require('./routes/search'));
 app.use('/print', require('./routes/print'));
+app.use('/img', require('./routes/img'));
 
 app.listen(3000); // port number
 

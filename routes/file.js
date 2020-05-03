@@ -14,7 +14,7 @@ const MongoClient = require('mongodb').MongoClient; //  deprecated
 router.post('/', function (req, res) {
     var form = new formidable.IncomingForm(); // use formidable to make our form 
 
-    form.uploadDir = './files' // where it will upload
+    form.uploadDir = './public/images' // where it will upload
     form.keepExtensions = true // not change extension
 
     // deal with file form(field == "file", value is file) 
@@ -47,7 +47,6 @@ router.post('/', function (req, res) {
 
         var file_name = file["file"].name // file_name = "process_ObjectID_file-info_originalName.extension"
         var splited_name = file_name.split("_") // splited_name = [ "process", "ObjectId", "file-info", "orginalName.extension" ]
-        var file_path = path.join(__dirname, "files", file_name) // where file existing
 
         var process = splited_name[0]
         var column = splited_name[2]
@@ -64,10 +63,10 @@ router.post('/', function (req, res) {
             var dict = JSON.parse(file);
             var collection = dict[process]
             var queryTable = {}
-            queryTable[column] = file_path
+            queryTable[column] = splited_name[3]
 
             // DB
-            MongoClient.connect('mongodb://223.194.70.112:27017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            MongoClient.connect('mongodb://223.194.70.112:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
                 if(err) {
                     console.error("Mongodb connection Error ", err)
                     res.json({"result" : "fail"})

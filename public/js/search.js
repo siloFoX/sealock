@@ -28,7 +28,7 @@ function isDataGood() {
     
     if(isNameGood() && isStartDateGood() && isEndDateGood()) {
         
-        if(transformToDate(startInput.value).getTime() < transformToDate(endInput.value).getTime())
+        if(transformToDate(startInput.value).getTime() <= transformToDate(endInput.value).getTime())
             return true;
         else 
             alert("Start Date is over than End Date! Please check the dates.")
@@ -134,7 +134,6 @@ function postSearch() {
 
         if(response["result"] === "ok") {
 
-            console.log("a")
             new_window = window.open(URL + "/print", "연구노트", resizable = true)
             new_window.resizeTo(width = 1200, height = screen.height)
 
