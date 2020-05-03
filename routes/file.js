@@ -66,7 +66,7 @@ router.post('/', function (req, res) {
             queryTable[column] = splited_name[3]
 
             // DB
-            MongoClient.connect('mongodb://223.194.70.112:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+            MongoClient.connect('mongodb://localhost:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
                 if(err) {
                     console.error("Mongodb connection Error ", err)
                     res.json({"result" : "fail"})

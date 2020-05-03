@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
 
         var dict = JSON.parse(file)
 
-        mongoClient.connect('mongodb://223.194.70.112:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
+        mongoClient.connect('mongodb://localhost:20017/Locke', {useNewUrlParser : true, useUnifiedTopology : true}, function (err, client) {
             if(err) {
                 console.error("Mongodb connection Error ", err)
                 res.json({"result" : "fail"})
