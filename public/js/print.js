@@ -1,4 +1,4 @@
-var URL = "http://localhost:3000"
+var url = "http://localhost:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
