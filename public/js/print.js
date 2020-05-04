@@ -1,4 +1,4 @@
-var URL = "http://223.194.70.112:3000"
+var url = "http://223.194.70.112:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
