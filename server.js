@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 //const mongo = require('mongodb') 
 //const MongoClient = require('mongodb').MongoClient;
 // CONNECT TO MONGODB SERVER localhost
-mongoose.connect("mongodb://"+"localhost:27017/Locke", {
+mongoose.connect("mongodb://"+"localhost:20017/Locke", {
    socketTimeoutMS: 0,
    keepAlive: true,
    reconnectTries: 30,
