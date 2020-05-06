@@ -1,5 +1,5 @@
-// URL for client 223.194.70.112
-var URL = "http://223.194.70.112:3000"
+// URL for client localhost
+var URL = "http://localhost:3000"
 
 var // DOM controller get by ID
     $$ = function(id) {
@@ -135,7 +135,7 @@ function postSearch() {
         if(response["result"] === "ok") {
 
             new_window = window.open(URL + "/print", "연구노트", resizable = true)
-            new_window.resizeTo(width = 1200, height = screen.height)
+            new_window.resizeTo(width = screen.height * 21 / 29 + 10, height = screen.height)
 
             alert("Print the PDF file")
         }

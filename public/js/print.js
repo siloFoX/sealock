@@ -1,24 +1,31 @@
+<<<<<<< HEAD
 var url = "http://223.194.70.112:3000"
+=======
+var url = "http://localhost:3000"
+>>>>>>> develop
 
 var // DOM controller get by ID
     $$ = function(id) {
         return document.getElementById(id);
     },
 
-    researcher = $$("researcher"),
+    // researcher = $$("researcher"),
     memo_controller = $$("memo-controller"),
     body = $$("body"),
     image_form = $$("image-form"),
     memo_form = $$("memo-form"),
+    image_div_class = $$("picture-body"),
+    container = $$("container"),
     print_info_path = "./json/print.json",
     record_picture_name = {},
     record_each_memos = {},
     global_info,
-    count_memo = 0
+    count_memo = 0,
+    count_table = 0
 
 $.getJSON(print_info_path, (info) => {
 
-    researcher.innerHTML = info[0]["실험자명"] + `<small class="text-muted" style = "margin-left : 5px;">연구원</small>`
+    // researcher.innerHTML = info[0]["실험자명"] + `<small class="text-muted" style = "margin-left : 5px;">연구원</small>`
 
     global_info = info
     
@@ -89,12 +96,13 @@ $.getJSON(print_info_path, (info) => {
         table_data.push(each_data)
         previous_process = each_data["공정"]
         count_num_one_process++
+        count_table++
 
     } while(idx++ < info.length - 1)
 
     renderMemos(record_each_memos)
     renderPictures(record_picture_name)
-    // getPicture()
+    getPicture()
 })
 
 function renderMemos(memos) {
@@ -114,10 +122,8 @@ function renderMemos(memos) {
 
 function renderPictures(picture_names) {
 
-    let count = 0
-
     for (let key in picture_names) {
-        
+
         let form_adder = document.createElement("div")
         
         // ObjectId 로 사진 검색
@@ -135,10 +141,7 @@ function renderPictures(picture_names) {
         // 링크로 처리
         img.src = url_tmp
 
-        if(count++ % 2 === 0) 
-            form_adder.className = "even-picture"
-        else 
-            form_adder.className = "odd-picture"
+        form_adder.className = "picture"
         
         image_form.appendChild(form_adder)
         form_adder.appendChild(img)
@@ -147,20 +150,41 @@ function renderPictures(picture_names) {
 }
 
 function getPicture () {
+    
+    let heads = document.getElementsByClassName("wtHider")
+    let max_length = 0
 
-    html2canvas(document.body).then(function(canvas) {
+    for (let idx = 0; idx < heads.length; idx++) {
+        
+        let width_num = heads[idx].style.width.slice(0, -2)
+        width_num = parseInt(width_num)
 
-        let imgData = canvas.toDataURL("image/png");
+        if (width_num > max_length)
+            max_length = width_num
+    }
+    
+    memo_form.style.width = max_length + 100 + "px"
+    max_length += 200
+    image_div_class.style.width = max_length + "px"
+    image_div_class.style.height = max_length * 29 / 21 + "px"
 
-        let file_name = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ").pdf"
-        let doc = new jsPDF({orientation : 'landscape'})
+    document.body.style.zoom = 0.6
 
-        let imgProps = doc.getImageProperties(imgData)
+    html2canvas(image_div_class).then(function(canvas) {
 
-        var width = doc.internal.pageSize.getWidth();
-        var height = (imgProps.height * width) / imgProps.width;
-        doc.addImage(imgData, 'PNG', 0, 0, width, height);
+        let file_name = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ").png"
 
-        doc.save(file_name)
+        canvas.toBlob(function (blob) {
+            var url = window.URL || window.webkitURL;
+            var imgSrc = url.createObjectURL(blob);
+            var img = new Image();
+            img.src = imgSrc;
+            img.onload = function () {
+                var pdf = new jsPDF('p', 'px', [img.height, img.width]);
+
+                pdf.addImage(img, 0, 0, img.width - 350, img.height - 350);
+                pdf.save(file_name + '.pdf');
+            }; 
+        })
     })
 }
