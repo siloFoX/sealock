@@ -8,4 +8,5 @@ date_tmp=$(date)
 echo $date_tmp >> /home/apl/smartp/seelock_ui/dump_time.log
 
 mv dump/ /home/apl/smartp/seelock_ui/dumps/
-mv dump $date_tmp
+#mv dump $date_tmp
+rm -rf dump/
