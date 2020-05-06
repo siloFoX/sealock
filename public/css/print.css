@@ -27,7 +27,9 @@
 }
 
 .container {
-    width : 98% !important;
+    /* width : 85% !important; */
+    margin-left : 10px !important;
+    margin-right : 10px !important;
 }
 
 .row {
@@ -81,17 +83,10 @@ li {
     height : 100%
 }
 
-.even-picture {
-    width : 40%;
-    height : 40%;
-    margin : 5%;
-    float : left;
-}
-
-.odd-picture {
-    width : 40%;
-    height : 40%;
-    margin : 5%;
+.picture {
+    width : 15%;
+    height : 15%;
+    margin : 6%;
     float : left;
 }
 

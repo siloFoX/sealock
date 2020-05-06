@@ -135,7 +135,7 @@ function postSearch() {
         if(response["result"] === "ok") {
 
             new_window = window.open(URL + "/print", "연구노트", resizable = true)
-            new_window.resizeTo(width = 1200, height = screen.height)
+            new_window.resizeTo(width = screen.height * 21 / 29 + 10, height = screen.height)
 
             alert("Print the PDF file")
         }
