@@ -6,22 +6,22 @@ var // DOM controller get by ID
     },
 
     // researcher = $$("researcher"),
-    memo_controller = $$("memo-controller"),
+    memo_controller = $$("memo-controller"), // memo controller in print.ejs file
     body = $$("body"),
-    image_form = $$("image-form"),
+    image_form = $$("image-form"), // img form downside of tables
     memo_form = $$("memo-form"),
     image_div_class = $$("picture-body"),
     container = $$("container"),
-    print_info_path = "./json/print.json",
+    print_info_path = "./json/print.json", // table data from json file
     record_picture_name = {},
     record_each_memos = {},
     global_info,
-    count_memo = 0,
+    count_memo = 0, // count meta-data
     count_table = 0
 
 $.getJSON(print_info_path, (info) => {
 
-    // researcher.innerHTML = info[0]["실험자명"] + `<small class="text-muted" style = "margin-left : 5px;">연구원</small>`
+    // read json data from print.json file
 
     global_info = info
     
@@ -31,23 +31,27 @@ $.getJSON(print_info_path, (info) => {
     let count_num_one_process = 0
     let idx = 0
 
-    do {
+    do { // minimum iteration for do-while
 
         let each_data = info[idx]
 
-        if(each_data["사진"]) {
+        if(each_data["사진"]) { // for picture data searching
             record_picture_name[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["사진"] + "_" + each_data["_id"]
         }
         
-        if(each_data["비고"]){
+        if(each_data["비고"]){ // for memo data searching
             record_each_memos[each_data["공정"] + "_#" + String(count_num_one_process)] = each_data["비고"]
             count_memo++
         }
 
+        // delete data which not contained tables
         delete each_data["사진"]
         delete each_data["_id"]
         delete each_data["비고"]
         
+        // in json file, there is table which is enumerated every process data.
+        // So, This if-condition works seperating each process data
+        // There isn't need so much understanding of works
         if((!(info.length - 1) || previous_process) && (each_data["공정"] != previous_process || idx == info.length - 1)) {
 
             if(idx == info.length - 1) {
@@ -96,8 +100,14 @@ $.getJSON(print_info_path, (info) => {
 
     } while(idx++ < info.length - 1)
 
-    renderMemos(record_each_memos)
-    renderPictures(record_picture_name)
+    // render work downside of the tables
+    renderMemos(record_each_memos) // memos
+    renderPictures(record_picture_name) // pictures
+    
+    // *** There is other different meaning of pictures ***
+    // So Be careful
+
+    // make A4 size real pdf file from this page
     getPicture()
 })
 
@@ -159,6 +169,7 @@ function getPicture () {
             max_length = width_num
     }
     
+    // For feating A4 size
     memo_form.style.width = max_length + 100 + "px"
     max_length += 200
     image_div_class.style.width = max_length + "px"
@@ -166,10 +177,13 @@ function getPicture () {
 
     document.body.style.zoom = 0.6
 
+    // Capture work for page
     html2canvas(image_div_class).then(function(canvas) {
 
         let file_name = global_info[0]["실험자명"] +  " 연구원 연구노트 (" + global_info[0]["실험날짜"] + "-" + global_info[global_info.length - 1]["실험날짜"] + ").png"
 
+        // Change raw base64 format data to blob data
+        // To print this page
         canvas.toBlob(function (blob) {
             var url = window.URL || window.webkitURL;
             var imgSrc = url.createObjectURL(blob);
