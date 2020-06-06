@@ -18,8 +18,6 @@ router.post('/', function (req, res) {
     var rawReq = req.body
 
     console.log("Print query : " + JSON.stringify(rawReq))
-    // console.log(rawReq["start-date"])
-    // console.log(rawReq["end-date"])
 
     fs.readFile("./collection_allocate.json", (err, file) => {
         
@@ -41,14 +39,19 @@ router.post('/', function (req, res) {
 
             var dateList = []
 
+
+            // *** This is rough iteration form from date queries
+            // So it has to be chaged ***
             for (date = parseInt(rawReq["start-date"]); date < parseInt(rawReq["end-date"]) + 1; date++) 
                 dateList.push(String(date))
 
+            // query table
             var query = {$and : [{"실험자명" : rawReq["name"]}, {"실험날짜" : {$in : dateList}}]}
             var resultList = []
 
             let val_array = Object.values(dict)
         
+            // Make result list from result of each query
             for (let val_idx = 0; val_idx < val_array.length; val_idx++) {
 
                 console.log(val_array[val_idx] + " query finished")
@@ -61,6 +64,7 @@ router.post('/', function (req, res) {
                         return;
                     }
                     else if(!result[0]) {
+                        console.log("Error : There is no data. Please check the DB meta data")
                     }
                     else {
                         
@@ -70,16 +74,15 @@ router.post('/', function (req, res) {
                             result[idx] = {}
                             result[idx]["공정"] = val_array[val_idx]
                             
+                            // !! Important order of key list (Because of the print page)
                             for(let key_tmp in result_tmp) 
                                 result[idx][key_tmp] = result_tmp[key_tmp]
-                            
-        
-                            // delete result[idx]._id
         
                             resultList.push(result[idx])
                         }
                     }
 
+                    // Construct Json file in public/json/print.js for print page
                     if(val_idx == val_array.length - 1) {
 
                         console.log(resultList.length + " is found")
