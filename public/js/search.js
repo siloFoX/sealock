@@ -7,9 +7,12 @@ var // DOM controller get by ID
     },
 
     backBtn = $$("back-btn"),
+
+    // Input from input forms (There is three inputs)
     nameInput = $$("name-input"),
     startInput = $$("start-input"),
     endInput = $$("end-input"),
+
     searchBtn = $$("search-btn")
 
 backBtn.addEventListener("click", () => {
@@ -24,11 +27,13 @@ function onClickSearchBtn() {
         postSearch();
 }
 
-function isDataGood() {
+function isDataGood() { 
     
+    // three round of data validation processess
     if(isNameGood() && isStartDateGood() && isEndDateGood()) {
         
         if(transformToDate(startInput.value).getTime() <= transformToDate(endInput.value).getTime())
+            // start data from end data validation 
             return true;
         else 
             alert("Start Date is over than End Date! Please check the dates.")
@@ -37,7 +42,7 @@ function isDataGood() {
         return false;
 }
 
-function isNameGood () {
+function isNameGood () { // Search from DB's namespace
     
     if(nameInput.value)
         return true;
@@ -86,6 +91,9 @@ function isDateGood(date) {
 
 function transformToDate (date) {
 
+    // Data format transformation
+    // Data format is object type of JS
+
     if(date.length != 8) {
         alert("Invalid Date format")
         return null;
@@ -109,15 +117,18 @@ function transformToDate (date) {
 }
 
 function postSearch() {
+    // Make query from every data
 
     var url_tmp = URL + "/search"
 
-    var req = {
+    var req = { 
         "name" : nameInput.value,
         "start-date" : startInput.value,
         "end-date" : endInput.value
     }
 
+    // Configuration of the query 
+    // data type is json
     var config = {
         crossOrigin : true,
         url : url_tmp,
@@ -127,6 +138,7 @@ function postSearch() {
         responseType : "json"
     }
 
+    // Transmit data using axios which is easy transmitting program through HTML protocol
     axios(config)
     .then(res =>{
 
@@ -134,6 +146,7 @@ function postSearch() {
 
         if(response["result"] === "ok") {
 
+            // Make size A4 simmilar
             new_window = window.open(URL + "/print", "연구노트", resizable = true)
             new_window.resizeTo(width = screen.height * 21 / 29 + 10, height = screen.height)
 
